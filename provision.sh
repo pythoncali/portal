@@ -58,6 +58,7 @@ echo "DATABASE_URL=postgresql://db_user:password@127.0.0.1:5432/my_db" >> config
 echo "Setting defaults for when using ssh"
 echo "source ~vagrant/.virtualenvs/env/bin/activate" >> ~vagrant/.bashrc
 echo "cd /vagrant" >> ~vagrant/.bashrc
+sudo chown -R vagrant:vagrant ~vagrant/.virtualenvs/
 
 python3 manage.py migrate
 
