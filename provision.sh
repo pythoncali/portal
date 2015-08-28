@@ -59,6 +59,6 @@ echo "Setting defaults for when using ssh"
 echo "source ~vagrant/.virtualenvs/env/bin/activate" >> ~vagrant/.bashrc
 echo "cd /vagrant" >> ~vagrant/.bashrc
 
-python3 manage.py runserver
+python3 manage.py migrate
 
 echo "Project setup finished."
