@@ -46,11 +46,8 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'djangocali-portal.users',  # custom users app
     # Your stuff: custom apps go here
-<<<<<<< HEAD
     'blog',
-=======
     'forum',
->>>>>>> forum
     'taggit',
 )
 
