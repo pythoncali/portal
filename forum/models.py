@@ -69,6 +69,8 @@ class Respuesta(models.Model):
     descripcion = models.TextField(max_length=2000)
     votos = models.IntegerField(default=0)
     aceptada = models.BooleanField(default=False)
+    slug = AutoSlugField(populate_from='titulo', unique=True, editable=False)
+    tags = TaggableManager()
     objects = ForoManager()
 
     class Meta:

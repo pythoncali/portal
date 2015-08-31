@@ -47,6 +47,7 @@ LOCAL_APPS = (
     'djangocali-portal.users',  # custom users app
     # Your stuff: custom apps go here
     'forum',
+    'taggit',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
