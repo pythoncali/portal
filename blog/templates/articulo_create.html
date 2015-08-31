@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %} Crear Articulo {% endblock %}
+
+{% block navbar-left %}
+    {% include "_navbar.html" with active_link="blog" %}
+{% endblock %}
+
+{% block container %}
+    <div id="main" class="wrapper style4">
+        <div class="container">
+            <div class="row">
+                <div id="content" class="8u skel-cell-important">
+                    <section>
+                        <form class="" action="" method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" name="crear_articulo" value="Publicar">
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock container %}
