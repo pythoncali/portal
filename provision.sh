@@ -21,6 +21,7 @@ virtualenv ~vagrant/.virtualenvs/env
 source ~vagrant/.virtualenvs/env/bin/activate
 
 # #Install packages
+echo 'Configuring language'
 echo 'export LANGUAGE="en_US.UTF-8"' | sudo tee -a /etc/profile.d/lang.sh
 echo 'export LANG="en_US.UTF-8"' | sudo tee -a /etc/profile.d/lang.sh
 echo 'export LC_ALL="en_US.UTF-8"' | sudo tee -a /etc/profile.d/lang.sh
@@ -35,7 +36,7 @@ apt-get install -y libjpeg-dev zlib1g-dev
 apt-get install -y vim gettext memcached libmemcached-dev
 
 
-echo "Configure Postgres DATABASE"
+echo "Configure Postgres DB"
 sudo -u postgres psql postgres -U postgres -c "CREATE ROLE db_user WITH LOGIN ENCRYPTED PASSWORD 'password' CREATEDB CREATEROLE REPLICATION SUPERUSER"
 sudo -u postgres psql postgres -U postgres -c "CREATE DATABASE my_db"
 sudo -u postgres psql postgres -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE my_db TO db_user"
