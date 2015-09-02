@@ -9,8 +9,7 @@ echo 'Installing python3-pip...'
 apt-get update
 apt-get install -y python3-pip
 
-
-# Install virtualenv 
+# Install virtualenv
 echo 'Installing virtualenv'
 alias python='/usr/bin/python3.4'
 pip3 install virtualenv
