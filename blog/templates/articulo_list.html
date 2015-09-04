@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ block.super }}Blog{% endblock %}
+
+{% block container %}
+<div>
+    <div id="sec1" class="text-page">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <h1>{% include "_brandname.html" %}</h1>
+            <p class="lead">El "leit motiv" de una comunidad es tener un espacio donde compartir su conocimiento y que mejor manera de hacerlo que con un blog, por eso ponemos a disposicion la bitacora de conocimiento de los integrantes, donde esperamos sea de utilidad para el mayor grupo posible.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sec2" class="text-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Lo que hemos escrito hasta ahora</h2>
+                    <p class="lead">Nuestras mas recientes publicaciones de la comunidad</p>
+                </div>
+            </div>
+            <div class="row">
+            {% for articulo in lista_articulos %}
+                <div class="col-lg-4">
+                    <div class="text-center"><img class="img-circle centered" src="{{ MEDIA_URL }}{{ articulo.imagen_destacada }}" alt="article thumbnail" height=150 width=150></div>
+                    <p class="heavy text-center">{{ articulo.autor.get_full_name }}</p>
+                    <h2><a href="/blog/{{ articulo.slug }}">{{ articulo.titulo }}</a></h2>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock container %}
