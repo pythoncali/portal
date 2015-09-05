@@ -35,7 +35,9 @@ sudo service postgresql restart
 
 cd /vagrant/
 ./install_os_dependencies.sh install
-./install_docker_dependencies.sh
+# Commented this because we are already running the deployment process with this
+# bash script, but will be available for the moment is needed.
+# ./install_docker_dependencies.sh
 echo "Installing requirements for python"
 pip install -r requirements/local.txt
 sudo chown -R vagrant:vagrant ~vagrant/.virtualenvs/
@@ -46,5 +48,7 @@ echo "DATABASE_URL=postgresql://db_user:password@127.0.0.1:5432/my_db" >> config
 echo "Setting defaults for when using ssh"
 echo "source ~vagrant/.virtualenvs/env/bin/activate" >> ~vagrant/.bashrc
 echo "cd /vagrant" >> ~vagrant/.bashrc
+python manage.py makemigrations
+python manage.py migrate
 
 echo "Project setup finished."
