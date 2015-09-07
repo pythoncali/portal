@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Categorias{% endblock %}
+
+{% block content %}
+
+    {% for categoria in lista_categorias %}
+        <!--
+        line commented because the platform still lacks a view than creates
+        a list of blog posts saved under the named category
+
+        <h5><a href="/blog/categorias{{ categoria.nombre }}">{{ categoria.nombre }}</a></h5>
+        -->
+        <h5>{{ categoria.nombre }}</h5>
+    {% endfor %}
+
+{% endblock content %}

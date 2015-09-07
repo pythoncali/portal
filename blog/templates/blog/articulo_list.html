@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block title %}{{ block.super }}Blog{% endblock %}
+{% block title %}{{ block.super }} - Blog{% endblock %}
 
-{% block container %}
+{% block content %}
 <div>
     <div id="sec1" class="text-page">
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-center">
-            <h1>{% include "_brandname.html" %}</h1>
             <p class="lead">El "leit motiv" de una comunidad es tener un espacio donde compartir su conocimiento y que mejor manera de hacerlo que con un blog, por eso ponemos a disposicion la bitacora de conocimiento de los integrantes, donde esperamos sea de utilidad para el mayor grupo posible.</p>
           </div>
         </div>
@@ -37,4 +36,4 @@
     </div>
 </div>
 
-{% endblock container %}
+{% endblock content %}
