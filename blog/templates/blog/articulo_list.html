@@ -28,7 +28,7 @@
                 <div class="col-lg-4">
                     <div class="text-center"><img class="img-circle centered" src="{{ MEDIA_URL }}{{ articulo.imagen_destacada }}" alt="article thumbnail" height=150 width=150></div>
                     <p class="heavy text-center">{{ articulo.autor.get_full_name }}</p>
-                    <h2><a href="/blog/{{ articulo.slug }}">{{ articulo.titulo }}</a></h2>
+                    <h2><a href="/blog/entradas/{{ articulo.slug }}">{{ articulo.titulo }}</a></h2>
                 </div>
             {% endfor %}
             </div>

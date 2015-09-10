@@ -3,7 +3,7 @@
 
 {% block title %} {{ articulo.titulo}} {% endblock %}
 
-{% block container %}
+{% block content %}
     <div id="main" class="wrapper style4">
 		<div class="container">
 			<div class="row">
@@ -12,17 +12,17 @@
 					<section>
 						<header class="major">
                             <div class="text-center"><img src="{{ MEDIA_URL }}{{ articulo.imagen_destacada }}" alt="article pic"></div>
-                            <h2>{{ articulo.titulo }}</h2>
+                            <h3>{{ articulo.titulo }}</h3>
                             <span class="byline">Publicado el {{ articulo.creado_en }}</span>
 						</header>
+                        <br>
 						<p>{{ articulo.contenido }}</p>
                         <br>
-                        <p>
-                            Autor: {{ articulo.autor.get_full_name }}
-                        </p>
+                        <p>Autor: {{ articulo.autor.get_full_name }}</p>
+
                     </section>
 				</div>
 			</div>
 		</div>
 	</div>
-{% endblock container %}
+{% endblock content %}
