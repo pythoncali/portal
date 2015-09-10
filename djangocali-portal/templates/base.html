@@ -44,16 +44,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">djangocali-portal</a>
+          <a class="navbar-brand" href="/">Comunidad de DjangoCali</a>
         </div>
-          
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-          </ul>
-        
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'home' %}">Inicio</a></li>
+                <li><a href="{% url 'about' %}">Sobre Nosotros</a></li>
+                <li><a href="{% url 'lista_articulos' %}">El Blog</a></li>
+                <li><a href="{% url 'lista_preguntas' %}">El Foro</a></li>
+            </ul>
+
           <ul class="nav navbar-nav navbar-right">
             {% if request.user.is_authenticated %}
               <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
@@ -100,4 +102,3 @@
     {% endblock javascript %}
   </body>
 </html>
- 
