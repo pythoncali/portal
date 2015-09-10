@@ -45,10 +45,21 @@ class CrearArticulo(LoginRequiredMixin, CreateView):
               'tags', 'estado']
 
 
+class ListaCategorias(ListView):
+    """Vista usando concepto de 'Class Based Views' para llamar todas los
+    categorias, asi se habilita la opcion de permitir acceso a las
+    funcionalidades del portal, sin necesidad de dar acceso al lado
+    administrativo del mismo.
+    """
+    model = Categoria
+    context_object_name = 'lista_categorias'
+
+
 class CrearCategoria(LoginRequiredMixin, CreateView):
     """Vista usando concepto de 'Class Based Views' para crear una categoria,
     asi se habilita la opcion de permitir acceso a las funcionalidades del
     portal, sin necesidad de dar acceso al lado administrativo del mismo.
     """
     model = Categoria
-    success_url = '/blog/'
+    success_url = '/blog/categorias/'
+    fields = ['nombre', ]
