@@ -111,6 +111,7 @@ class Survey(models.Model):
     highlighted_image = models.ImageField(upload_to='articles_pics/%Y-%m-%d/',
                                           null=True, blank=True)
     tags = TaggableManager()
+    objects = SurveyManager()
 
     class Meta:
         verbose_name = 'Encuesta'
@@ -128,8 +129,6 @@ class Survey(models.Model):
 
     def __str__(self):
         return self.title
-
-    objects = SurveyManager()
 
 
 class Submission(models.Model):
