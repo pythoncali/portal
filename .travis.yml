@@ -13,4 +13,5 @@ install:
   - "cd tests"
   - "hitch init"
 script:
+  - "bash provision.sh"
   - "hitch test . --extra '{\"xvfb\":true, \"pause_on_failure\":false}'"
