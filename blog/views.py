@@ -41,8 +41,12 @@ class CrearArticulo(LoginRequiredMixin, CreateView):
     """
     model = Articulo
     success_url = '/blog/'
-    fields = ['titulo', 'imagen_destacada', 'contenido', 'categoria', 'autor',
-              'tags', 'estado']
+    fields = ['titulo', 'imagen_destacada', 'contenido', 'categoria', 'tags',
+              'estado']
+
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super(CrearArticulo, self).form_valid(form)
 
 
 class ListaCategorias(ListView):
