@@ -6,10 +6,16 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
-                <h2>{{ object.username }}</h2>
-                {% if object.name %}<p>{{ object.name }}</p>{% endif %}
-                {% if object.picture %}<img src="{{ MEDIA_URL }}{{ object.picture }}" alt="profile_pic" />{% endif %}
+            <h2>{{ object.username }}</h2>
+            {% if object.name %}<p>{{ object.name }}</p>{% endif %}
+            <div class="col-sm-4">
+                {% if object.picture %}
+                    <img src="{{ MEDIA_URL }}{{ object.picture }}" alt="profile_pic" />
+                {% else %}
+                    <img src="{{ MEDIA_URL }}profile_pic.png" alt="" />
+                {% endif %}
+            </div>
+            <div class="col-sm-8">
                 {% if object.twitter_account %}<p><a href="{{ object.twitter_account }}">Perfil de Twitter</a></p>{% endif %}
                 {% if object.github_account %}<p><a href="{{ object.github_account }}">Perfil de GitHub</a></p>{% endif %}
                 {% if object.linkedin_account %}<p><a href="{{ object.linkedin_account }}">Perfil de LinkedIn</a></p>{% endif %}
@@ -26,7 +32,7 @@
                 </div>
             </div>
             <!-- End Action buttons -->
-            {% endif %}
+        {% endif %}
     </div>
 
 {% endblock content %}
