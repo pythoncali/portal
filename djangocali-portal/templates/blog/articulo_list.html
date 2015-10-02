@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ block.super }} - Blog{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Blog de la Comunidad</h1>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+                <!-- Blog Posts -->
+                {% for articulo in lista_articulos %}
+                    <h2><a href="{% url 'detalle_articulo' articulo.slug %}">{{ articulo.titulo }}</a></h2>
+                    <p class="lead">{{ articulo.autor.get_full_name }}</p>
+                    <p>Fecha de publicación: {{ articulo.creado_en }}</p>
+                    <hr>
+                    <img class="img-circle centered" src="{{ MEDIA_URL }}{{ articulo.imagen_destacada }}" alt="thumbnail" height=150 width=150>
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, voluptates, voluptas dolore ipsam cumque quam veniam accusantium laudantium adipisci architecto itaque dicta aperiam maiores provident id incidunt autem. Magni, ratione.</p>
+                    <a class="btn btn-primary" href="{% url 'detalle_articulo' articulo.slug %}">Seguir Leyendo</i></a>
+                    <hr>
+                {% endfor %}
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    <li class="previous">
+                        <a href="#">&larr; Mas Antiguos</a>
+                    </li>
+                    <li class="next">
+                        <a href="#">Mas Recientes &rarr;</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+                <!-- Blog Search Well -->
+                <div class="well">
+                    <h4>Buscar en el Blog</h4>
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Buscar</button>
+                        </span>
+                    </div>
+                    <!-- /.input-group -->
+                </div>
+                <!-- Blog Categories Well -->
+                <div class="well">
+                    <h4>Categorias del Blog</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled">
+                                <li><a href="#">Categoria</a>
+                                </li>
+                                <li><a href="#">Categoria</a>
+                                </li>
+                                <li><a href="#">Categoria</a>
+                                </li>
+                                <li><a href="#">Categoria</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.col-lg-6 -->
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled">
+                                <li><a href="#">Categoria</a>
+                                </li>
+                                <li><a href="#">Categoria</a>
+                                </li>
+                                <li><a href="#">Categoria</a>
+                                </li>
+                                <li><a href="#">Categoria</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.col-lg-6 -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- Side Widget Well -->
+                <div class="well">
+                    <h4>Un widget para poner algo</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

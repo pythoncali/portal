@@ -1,5 +1,120 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% block extracss %}{% endblock %}
 
 {% block content %}
-    <h4 class="center">Bienvenido Djangonautas</h4>
+
+<!-- Half Page Image Background Carousel Header -->
+    <header id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+        </ol>
+
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <!-- Set the first background image using inline CSS below. -->
+                <div class="fill" style="background-image:url({% static 'images/fachada_1.jpg' %});"></div>
+                <div class="carousel-caption">
+                    <h2>DjangoCali - 1</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the second background image using inline CSS below. -->
+                <div class="fill" style="background-image:url({% static 'images/fachada_2.jpg' %});"></div>
+                <div class="carousel-caption">
+                    <h2>DjangoCali - 2</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="background-image:url({% static 'images/fachada_3.jpg' %});"></div>
+                <div class="carousel-caption">
+                    <h2>DjangoCali - 3</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="background-image:url({% static 'images/fachada_4.jpg' %});"></div>
+                <div class="carousel-caption">
+                    <h2>DjangoCali - 4</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="background-image:url({% static 'images/fachada_5.jpg' %});"></div>
+                <div class="carousel-caption">
+                    <h2>DjangoCali - 5</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+
+    </header>
+
+    <!-- Page Content -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Bienvenido al portal de la Comunidad de DjangoCali</h1>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>DjangoProject Twitter feed</h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>Aquí van todos los tuits de la cuenta oficial de "The Django Foundation" en Twitter</p>
+                            <a href="#" class="btn btn-default">Accion</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>Enlaces interesantes</h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>Poner contenido interesante sobre paginas y articulos sobre Django.</p>
+                            <a href="#" class="btn btn-default">Accion</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>Panel Tres</h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>Poner otro contenido interesante en este panel</p>
+                            <a href="#" class="btn btn-default">Accion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 {% endblock content %}
+
+{% block extrajs %}
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+        $('.carousel').carousel({
+        interval: 5000 //changes the speed
+        })
+    </script>
+
+{% endblock %}}

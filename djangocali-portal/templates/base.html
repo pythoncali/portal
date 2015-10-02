@@ -1,104 +1,121 @@
 {% load staticfiles i18n %}<!DOCTYPE html>
 <html lang="en" ng-app>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}DjangoCali{% endblock title %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{% block title %}DjangoCali{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="DjangoCali community webpage">
+        <meta name="author" content="DjangoCali community">
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
-    {% block css %}
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        {% block css %}
+            <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+            <!-- Optional theme -->
+            <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
-        <!-- Your stuff: Third-party css libraries go here -->
+            <!-- Your stuff: Third-party css libraries go here -->
 
-        <!-- This file store project specific CSS -->
-        <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    {% endblock %}
+            <!-- This file store project specific CSS -->
+            <link href="{% static 'css/project.css' %}" rel="stylesheet">
+        {% endblock %}
 
-    {% block angular %}
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    {% endblock %}
+        {% block extracss %}{% endblock %}
 
-  </head>
+        {% block angular %}
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+        {% endblock %}
 
-  <body>
+    </head>
 
-    <div class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Comunidad de DjangoCali</a>
-        </div>
+    <body>
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">DjangoCali</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><a href="{% url 'home' %}">Inicio</a></li>
+                      <li><a href="{% url 'about' %}">Sobre Nosotros</a></li>
+                      <li><a href="{% url 'lista_articulos' %}">El Blog</a></li>
+                      <li><a href="{% url 'lista_preguntas' %}">El Foro</a></li>
+                        {% if request.user.is_authenticated %}
+                          <li><a href="{% url 'users:detail' request.user.username  %}">Mi Perfil</a></li>
+                          <li><a href="{% url 'account_logout' %}">Cerrar Sesion</a></li>
+                        {% else %}
+                          <li><a href="{% url 'account_signup' %}">Registrarse</a></li>
+                          <li><a href="{% url 'account_login' %}">Iniciar Sesion</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="{% url 'home' %}">Inicio</a></li>
-                <li><a href="{% url 'about' %}">Sobre Nosotros</a></li>
-                <li><a href="{% url 'lista_articulos' %}">El Blog</a></li>
-                <li><a href="{% url 'lista_preguntas' %}">El Foro</a></li>
-            </ul>
+        <div class="container">
 
-          <ul class="nav navbar-nav navbar-right">
-            {% if request.user.is_authenticated %}
-              <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
-              <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
-            {% else %}
-              <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
-              <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert fade in alert-dismissible {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
             {% endif %}
-          </ul>
-        </div>
-      </div>
-    </div>
 
-    <div class="container">
-
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
-            {% endfor %}
-        {% endif %}
+        </div> <!-- alerts container -->
 
         {% block content %}
             <p>Use this document as a way to quick start any new project.</p>
         {% endblock content %}
 
-    </div> <!-- /container -->
+        {% block modal %}{% endblock modal %}
 
-    {% block modal %}{% endblock modal %}
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        {% block javascript %}
+            <!-- Latest JQuery -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    {% block javascript %}
-      <!-- Latest JQuery -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-      <!-- Latest compiled and minified JavaScript -->
-      <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+            <!-- Your stuff: Third-party javascript libraries go here -->
 
-      <!-- Your stuff: Third-party javascript libraries go here -->
+            <!-- place project specific Javascript in this file -->
+            <script src="{% static 'js/project.js' %}"></script>
+        {% endblock javascript %}
 
-      <!-- place project specific Javascript in this file -->
-      <script src="{% static 'js/project.js' %}"></script>
-    {% endblock javascript %}
-  </body>
+        {% block extrajs %}{% endblock %}
+
+    </body>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <hr>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; DjangoCali 2015. Images: <a href="http://unsplash.com">Unsplash</a> (<a href="http://unsplash.com/cc0">CC0</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </html>
