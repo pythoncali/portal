@@ -5,9 +5,19 @@
 {% block title %} Crear Articulo {% endblock %}
 
 {% block content %}
-    <form class="" action="" method="post">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <input type="submit" name="crear_articulo" value="Publicar">
-    </form>
+
+    <div class="container">
+        <div class="row">
+            <div id="content" class="8u skel-cell-important">
+                <section>
+                    <form class="" action="" method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input type="submit" name="crear_articulo" value="Publicar">
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
 {% endblock content %}
