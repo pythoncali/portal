@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load staticfiles %}
 
 {% block title %}Usuario: {{ object.username }}{% endblock %}
 
@@ -12,7 +12,7 @@
                 {% if object.picture %}
                     <img src="{{ MEDIA_URL }}{{ object.picture }}" alt="profile_pic" />
                 {% else %}
-                    <img src="{{ MEDIA_URL }}profile_pic.png" alt="" />
+                    <img src="{% static 'images/profile_pic.png' %}" alt="" />
                 {% endif %}
             </div>
             <div class="col-sm-8">

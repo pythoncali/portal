@@ -55,5 +55,8 @@ node_modules/
 # virtual environments
 .env
 
-# ignore vagrant 
+# ignore vagrant
 .vagrant
+
+# ignore media files
+djangocali-portal/media/*
