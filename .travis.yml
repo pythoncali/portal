@@ -23,7 +23,7 @@ before_install:
   - sudo easy_install3 pip
 
 install:
-  - pip3 install -r requeriments/local.txt
+  - pip3 install -r requirements/local.txt
 
 before_script:
   - psql -c 'create database my_db;' -U postgres
