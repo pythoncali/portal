@@ -9,14 +9,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 from __future__ import absolute_import, unicode_literals
-
+import os
 import environ
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 APPS_DIR = ROOT_DIR.path('djangocali-portal')
 
 env = environ.Env()
-environ.Env.read_env()
+if os.path.isfile('.env'):
+    environ.Env.read_env()
 
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
