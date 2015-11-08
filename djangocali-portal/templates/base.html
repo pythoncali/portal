@@ -1,19 +1,22 @@
 {% load staticfiles i18n %}<!DOCTYPE html>
-<html lang="en" ng-app>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
+		<!-- BASICS -->
         <meta charset="UTF-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>{% block title %}DjangoCali{% endblock title %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="DjangoCali community webpage">
         <meta name="author" content="DjangoCali community">
-
-        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-          <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-
         {% block css %}
+
             <!-- Latest compiled and minified CSS -->
             <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
@@ -23,7 +26,12 @@
             <!-- Your stuff: Third-party css libraries go here -->
 
             <!-- This file store project specific CSS -->
-            <link href="{% static 'css/project.css' %}" rel="stylesheet">
+            <link rel="stylesheet" href="{% static 'css/project.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'css/isotope.css' %}" media="screen" />
+    		<link rel="stylesheet" href="{% static 'js/fancybox/jquery.fancybox.css' %}" type="text/css" media="screen" />
+            <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    		<!-- skin -->
+    		<link rel="stylesheet" href="{% static 'skin/default.css' %}">
         {% endblock %}
 
         {% block extracss %}{% endblock %}
@@ -36,20 +44,17 @@
 
     <body>
         <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">DjangoCali</a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <section id="header" class="appear"></section>
+		<div class="navbar navbar-fixed-top" role="navigation" data-0="line-height:80px; height:80px; background-color:rgba(0,0,0,0.4);" data-300="line-height:60px; height:60px; background-color:rgba(0,0,0,1);">
+			 <div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="fa fa-bars color-white"></span>
+					</button>
+					<h1><a class="navbar-brand" href="/" data-0="line-height:70px;" data-300="line-height:50px;">			DjangoCali
+					</a></h1>
+				</div>
+				<div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                       <li><a href="{% url 'home' %}">Inicio</a></li>
                       <li><a href="{% url 'about' %}">Sobre Nosotros</a></li>
@@ -63,11 +68,9 @@
                           <li><a href="{% url 'account_login' %}">Iniciar Sesion</a></li>
                         {% endif %}
                     </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container -->
-        </nav>
+				</div><!--/.navbar-collapse -->
+			</div>
+		</div>
 
         <div class="container">
 
@@ -102,6 +105,18 @@
 
             <!-- place project specific Javascript in this file -->
             <script src="{% static 'js/project.js' %}"></script>
+            <script src="{% static 'js/modernizr-2.6.2-respond-1.1.0.min.js' %}"></script>
+        	<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+            <script src="{% static 'js/jquery.isotope.min.js' %}"></script>
+        	<script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+        	<script src="{% static 'js/fancybox/jquery.fancybox.pack.js' %}"></script>
+        	<script src="{% static 'js/skrollr.min.js' %}"></script>
+        	<script src="{% static 'js/jquery.scrollTo-1.4.3.1-min.js' %}"></script>
+        	<script src="{% static 'js/jquery.localscroll-1.2.7-min.js' %}"></script>
+        	<script src="{% static 'js/stellar.js' %}"></script>
+        	<script src="{% static 'js/jquery.appear.js' %}"></script>
+        	<script src="{% static 'js/validate.js' %}"></script>
+            <script src="{% static 'js/main.js' %}"></script>
         {% endblock javascript %}
 
         {% block extrajs %}{% endblock %}
@@ -109,6 +124,33 @@
     </body>
     <!-- Footer -->
     <footer>
+        <section id="footer" class="section footer">
+    		<div class="container">
+    			<div class="row animated opacity mar-bot20" data-andown="fadeIn" data-animation="animation">
+    				<div class="col-sm-12 align-center">
+                        <ul class="social-network social-circle">
+                            <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
+                            <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+    				</div>
+    			</div>
+
+    			<div class="row align-center copyright">
+    					<div class="col-sm-12"><p>Copyright &copy; DjangoCali 2015 - Theme by <a href="http://bootstraptaste.com">Bootstrap Themes</a> - Images by <a href="http://unsplash.com">Unsplash</a> (<a href="http://unsplash.com/cc0">CC0</a>)</p></div>
+                        <!--
+                            All links in the footer should remain intact.
+                            Licenseing information is available at: http://bootstraptaste.com/license/
+                            You can buy this theme without footer links online at: http://bootstraptaste.com/buy/?theme=Amoeba
+                        -->
+                <a href="#header" class="scrollup"><i class="fa fa-chevron-up"></i></a>
+    			</div>
+    		</div>
+    	</section>
+
+        <!--
         <div class="container">
             <hr>
             <div class="row">
@@ -117,5 +159,6 @@
                 </div>
             </div>
         </div>
+        -->
     </footer>
 </html>
