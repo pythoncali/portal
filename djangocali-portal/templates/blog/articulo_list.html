@@ -19,10 +19,14 @@
                 <!-- Blog Posts -->
                 {% for articulo in lista_articulos %}
                     <h2><a href="{% url 'detalle_articulo' articulo.slug %}">{{ articulo.titulo }}</a></h2>
-                    <p class="lead">{{ articulo.autor.get_full_name }}</p>
-                    <p>Fecha de publicación: {{ articulo.creado_en }}</p>
+                    <div class="postmetadata">
+                        <ul>
+                            <li><i class="lead fa fa-user"></i> <a href="#">{{ articulo.autor.get_full_name }}</a></li>
+                            <li><i class="fa fa-calendar"></i>{{ articulo.creado_en }}</li>
+                        </ul>
+                    </div>
                     <hr>
-                    <img class="img-circle centered" src="{{ MEDIA_URL }}{{ articulo.imagen_destacada }}" alt="thumbnail" height=150 width=150>
+                    <img src="{{ MEDIA_URL }}{{ articulo.imagen_destacada }}" alt="thumbnail" height=150>
                     <hr>
                     <p>{{ articulo.contenido|truncatechars:250 }}</p>
                     <a class="btn btn-primary" href="{% url 'detalle_articulo' articulo.slug %}">Seguir Leyendo</i></a>
