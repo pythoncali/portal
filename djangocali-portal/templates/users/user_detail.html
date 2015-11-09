@@ -10,7 +10,7 @@
             {% if object.name %}<p>{{ object.name }}</p>{% endif %}
             <div class="col-sm-4">
                 {% if object.picture %}
-                    <img src="{{ MEDIA_URL }}{{ object.picture }}" alt="profile_pic" />
+                    <img src="{{ MEDIA_URL }}{{ object.picture }}" alt="profile_pic" height="300" />
                 {% else %}
                     <img src="{% static 'img/profile_pic.png' %}" alt="" />
                 {% endif %}
