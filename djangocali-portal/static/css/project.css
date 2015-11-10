@@ -33,16 +33,15 @@
   border-color: #eed3d7;
 }
 
-
 html,
 body {
     height: 100%;
 }
 
+/* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes.
 body {
-    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-}
-
+    padding-top: 50px; }
+*/
 .carousel {
     height: 50%; /* You can change the height of the carousel by changing the height in the class below. It is set to 50% by default, but can be any height! */
 }
@@ -67,4 +66,20 @@ body {
 
 footer {
     margin: 50px 0;
+}
+
+.postmetadata{
+	margin-bottom: 20px;
+	padding: 5px 0;
+}
+
+.postmetadata ul{margin: 0; padding: 0}
+
+.postmetadata ul li{
+	display: inline-block;
+	margin-right: 20px;
+}
+
+.postmetadata i{
+	margin: 4px 5px 0 0;
 }
