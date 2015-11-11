@@ -16,10 +16,34 @@
                 {% endif %}
             </div>
             <div class="col-sm-8">
-                {% if object.twitter_account %}<p><a href="{{ object.twitter_account }}">Perfil de Twitter</a></p>{% endif %}
-                {% if object.github_account %}<p><a href="{{ object.github_account }}">Perfil de GitHub</a></p>{% endif %}
-                {% if object.linkedin_account %}<p><a href="{{ object.linkedin_account }}">Perfil de LinkedIn</a></p>{% endif %}
                 {% if object.bio %}<p>{{ object.bio }}</p> {% endif %}
+                <ul class="social-network social-circle">
+                    {% if object.twitter_account %}
+                        <li>
+                            <a href="{{ object.twitter_account }}" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if object.github_account %}
+                        <li>
+                            <a href="{{ object.github_account }}" class="icoGithub" title="Github"><i class="fa fa-github"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if object.linkedin_account %}
+                        <li>
+                            <a href="{{ object.linkedin_account }}" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if object.google_plus_account %}
+                        <li>
+                            <a href="{{ object.google_plus_account }}" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if object.facebook_account %}
+                        <li>
+                            <a href="{{ object.facebook_account }}" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
         {% if object == request.user %}
