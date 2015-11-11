@@ -3,70 +3,77 @@
 
 {% block content %}
 
-    <section id="parallax1" class="section pad-top40 pad-bot40" data-stellar-background-ratio="0.5">
+    <section class="featured">
         <div class="container">
-        <div class="align-center pad-top40 pad-bot40">
-            <blockquote class="bigquote color-white">Conoce a los Djangonautas</blockquote>
-            <p class="color-white">Y quienes son nuestros integrantes</p>
-        </div>
+            <div class="row mar-bot40">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="align-center">
+                        <h2 class="slogan">¿Que es DjangoCali?</h2>
+                        <p class="lead">
+                            Somos una comunidad concebida para concentrar el interes y el uso de Python y Django
+                            en un entorno amistoso y productivo, donde todos podamos aprender y mejorar
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-
-    <div>
-        <div style="padding-top:30px;" class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p class="lead">
-                        Somos una comunidad concebida para concentrar el interes y el uso de Python y Django
-                        en un entorno amistoso y productivo, donde todos podamos aprender y mejorar
-                    </p>
+    <div style="padding-top:30px; padding-bottom:30px;" class="container">
+        <div class="row">
+    	    <div class="span12">
+                <div class="col-lg-5 pull-left">
+                    <img class="pull-left" alt="" src="{% static 'img/django_group.jpeg' %}" />
+                </div>
+                <div class="col-lg-5 pull-right">
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        			</p>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        			</p>
                 </div>
             </div>
-            <div class="row">
-        	    <div class="span12">
-                    <div class="col-lg-5 pull-left">
-                        <img class="pull-left" alt="" src="{% static 'img/django_group.jpeg' %}" />
-                    </div>
-                    <div class="col-lg-5 pull-right">
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            			</p>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            			</p>
-                    </div>
-                </div>
-        	</div>
-            <div style="padding-top:30px;" class="container text-center">
-                <h2>¿Y Cuales Son los Djangonautas?</h2>
+    	</div>
+    </div>
+    <section class="section" data-stellar-background-ratio="0.5" style="background-image: url({% static 'img/fachada_8.jpg' %});">
+        <div class="container">
+            <div class="align-center pad-top40 pad-bot40">
+                <blockquote class="bigquote color-white">¿Quienes son los Djangonautas?</blockquote>
             </div>
+        </div>
+    </section>
+    <div style="padding-top:30px;" class="container">
+        <div style="padding-top:30px;" class="container text-center">
+            <h3>Estos son nuestros integrantes.</h3>
+            <hr>
+        </div>
 
-            <div class="row text-center">
-                <div class="col-lg-3">
-                    <div><img class="img-circle centered" src="{% static 'img/team/member1.jpg' %}" alt="profile pic"></div>
-                    <p class="lead">Cassidy Coder</p>
-                    <h4>UI Ninja</h4>
-                    <p>Le gusta el cafe</p>
-                </div>
-                <div class="col-lg-3">
-                    <div><img class="img-circle centered" src="{% static 'img/team/member2.jpg' %}" alt="profile pic"></div>
-                    <p class="lead">James King</p>
-                    <h4>UX Guru</h4>
-                    <p>Le gusta el cafe</p>
-                </div>
-                <div class="col-lg-3">
-                    <div><img class="img-circle centered" src="{% static 'img/team/member3.jpg' %}" alt="profile pic"></div>
-                    <p class="lead">Kate Lamport</p>
-                    <h4>Backend Jedi</h4>
-                    <p>Le gusta el cafe</p>
-                </div>
-                <div class="col-lg-3">
-                    <div><img class="img-circle centered" src="{% static 'img/team/member4.jpg' %}" alt="profile pic"></div>
-                    <p class="lead">Juanito Alimaña</p>
-                    <h4>Frontend Lame Developer</h4>
-                    <p>No le gusta el cafe</p>
-                </div>
+        <div class="row text-center">
+            <div class="col-lg-3">
+                <div><img class="img-circle centered" src="{% static 'img/team/member1.jpg' %}" alt="profile pic"></div>
+                <p class="lead">Cassidy Coder</p>
+                <h4>UI Ninja</h4>
+                <p>Le gusta el cafe</p>
+            </div>
+            <div class="col-lg-3">
+                <div><img class="img-circle centered" src="{% static 'img/team/member2.jpg' %}" alt="profile pic"></div>
+                <p class="lead">James King</p>
+                <h4>UX Guru</h4>
+                <p>Le gusta el cafe</p>
+            </div>
+            <div class="col-lg-3">
+                <div><img class="img-circle centered" src="{% static 'img/team/member3.jpg' %}" alt="profile pic"></div>
+                <p class="lead">Kate Lamport</p>
+                <h4>Backend Jedi</h4>
+                <p>Le gusta el cafe</p>
+            </div>
+            <div class="col-lg-3">
+                <div><img class="img-circle centered" src="{% static 'img/team/member4.jpg' %}" alt="profile pic"></div>
+                <p class="lead">Juanito Alimaña</p>
+                <h4>Frontend Lame Developer</h4>
+                <p>No le gusta el cafe</p>
             </div>
         </div>
     </div>
+
     <hr>
     <div id="sec3" style="padding-bottom: 30px;">
         <div class="container">
