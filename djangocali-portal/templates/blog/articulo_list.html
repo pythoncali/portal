@@ -26,7 +26,7 @@
                         </ul>
                     </div>
                     <hr>
-                    <img src="{{ MEDIA_URL }}{{ articulo.imagen_destacada }}" alt="thumbnail" height=150>
+                    <img src="{{ MEDIA_URL }}{{ articulo.imagen_destacada }}" alt="thumbnail" width="100%">
                     <hr>
                     <p>{{ articulo.contenido|truncatechars:250 }}</p>
                     <a class="btn btn-primary" href="{% url 'detalle_articulo' articulo.slug %}">Seguir Leyendo</i></a>
@@ -53,6 +53,13 @@
             <div class="col-md-4">
 
                 <!-- Blog Search Well -->
+                {% if request.user.is_authenticated %}
+                    <div class="well">
+                        <h4>Escribir un articulo</h4>
+                        <a class="btn btn-success" href="{% url 'crear_articulo' %}" title="Escribir Articulo"><span class="fa fa-pencil"></span> Escribir un nuevo articulo.</a>
+                        <!-- /.input-group -->
+                    </div>
+                {% endif %}
                 <div class="well">
                     <h4>Buscar en el Blog</h4>
                     <div class="input-group">
