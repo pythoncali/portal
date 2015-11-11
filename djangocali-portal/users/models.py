@@ -28,6 +28,10 @@ class User(AbstractUser):
                                      blank=True, null=True)
     linkedin_account = models.URLField("Cuenta de LinkedIn", max_length=255,
                                        blank=True, null=True)
+    profile = models.CharField("En que te desenvuelves", max_length=20,
+                               blank=True, null=True)
+    short_bio = models.CharField("Frase descriptiva", max_length=60, blank=True,
+                                 null=True)
     bio = models.CharField("Descripción corta", max_length=200,
                            blank=True, null=True)
 

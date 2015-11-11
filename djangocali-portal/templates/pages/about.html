@@ -45,35 +45,29 @@
             <h3>Estos son nuestros integrantes.</h3>
             <hr>
         </div>
-
         <div class="row text-center">
-            <div class="col-lg-3">
-                <div><img class="img-circle centered" src="{% static 'img/team/member1.jpg' %}" alt="profile pic"></div>
-                <p class="lead">Cassidy Coder</p>
-                <h4>UI Ninja</h4>
-                <p>Le gusta el cafe</p>
-            </div>
-            <div class="col-lg-3">
-                <div><img class="img-circle centered" src="{% static 'img/team/member2.jpg' %}" alt="profile pic"></div>
-                <p class="lead">James King</p>
-                <h4>UX Guru</h4>
-                <p>Le gusta el cafe</p>
-            </div>
-            <div class="col-lg-3">
-                <div><img class="img-circle centered" src="{% static 'img/team/member3.jpg' %}" alt="profile pic"></div>
-                <p class="lead">Kate Lamport</p>
-                <h4>Backend Jedi</h4>
-                <p>Le gusta el cafe</p>
-            </div>
-            <div class="col-lg-3">
-                <div><img class="img-circle centered" src="{% static 'img/team/member4.jpg' %}" alt="profile pic"></div>
-                <p class="lead">Juanito Alimaña</p>
-                <h4>Frontend Lame Developer</h4>
-                <p>No le gusta el cafe</p>
-            </div>
+            {% for user in user_list %}
+                <div class="col-lg-3">
+                    {% if user.picture %}
+                        <div><img class="img-circle centered" src="{{ MEDIA_URL }}{{ user.picture }}" alt="profile pic" height="200" /></div>
+                    {% else %}
+                        <div><img class="img-circle centered" src="{% static 'img/member1.jpg' %}" alt="profile pic" /></div>
+                    {% endif %}
+                    <a href="{% url 'users:detail' user.username %}" class="lead">{{ user.name }}</a>
+                    {% if user.profile %}
+                        <h4>{{ user.profile}}</h4>
+                    {% else %}
+                        <h4>Django Interested</h4>
+                    {% endif %}
+                    {% if user.short_bio %}
+                        <p>{{ user.short_bio }}</p>
+                    {% else %}
+                        <p>Le gusta el cafe</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
         </div>
     </div>
-
     <hr>
     <div id="sec3" style="padding-bottom: 30px;">
         <div class="container">

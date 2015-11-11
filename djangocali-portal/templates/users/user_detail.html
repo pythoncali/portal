@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <h2>{{ object.username }}</h2>
-            {% if object.name %}<p>{{ object.name }}</p>{% endif %}
+            {% if object.name %}<p class="lead">{{ object.name }}</p>{% endif %}
             <div class="col-sm-4">
                 {% if object.picture %}
                     <img src="{{ MEDIA_URL }}{{ object.picture }}" alt="profile_pic" height="300" />

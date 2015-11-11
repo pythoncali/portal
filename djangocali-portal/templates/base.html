@@ -59,7 +59,7 @@
 				<div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                       <li><a href="{% url 'home' %}">Inicio</a></li>
-                      <li><a href="{% url 'about' %}">Sobre Nosotros</a></li>
+                      <li><a href="{% url 'users:list' %}">Djangonautas</a></li>
                       <li><a href="{% url 'lista_articulos' %}">El Blog</a></li>
                       <li><a href="{% url 'lista_preguntas' %}">El Foro</a></li>
                         {% if request.user.is_authenticated %}
