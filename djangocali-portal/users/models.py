@@ -16,6 +16,12 @@ class User(AbstractUser):
     name = models.CharField(_("Name of User"), blank=True, max_length=255)
     picture = models.ImageField("Avatar", upload_to='profile_pics/',
                                 null=True, blank=True)
+    blog_account = models.URLField("Direccion del blog", max_length=255,
+                                   blank=True, null=True)
+    facebook_account = models.URLField("Cuenta de Facebook", max_length=255,
+                                       blank=True, null=True)
+    google_plus_account = models.URLField("Cuenta de Google+", max_length=255,
+                                          blank=True, null=True)
     twitter_account = models.URLField("Cuenta de Twitter", max_length=255,
                                       blank=True, null=True)
     github_account = models.URLField("Cuenta de GitHub", max_length=255,
