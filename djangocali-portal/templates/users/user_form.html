@@ -7,7 +7,7 @@
     <div class="container">
         <h2>Nombre: {{ user.name }}</h2>
         <h2>Usuario: {{ user.username }}</h2>
-        <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
+        <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{% url 'users:update' %}">
             {% csrf_token %}
             {{ form|crispy }}
             <div class="control-group">

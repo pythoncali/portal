@@ -60,3 +60,4 @@ node_modules/
 
 # ignore media files
 djangocali-portal/media/*
+djangocali-portal/static_old/*
