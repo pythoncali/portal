@@ -25,13 +25,14 @@
 
             <!-- Your stuff: Third-party css libraries go here -->
 
+            <!-- This files store the theme CSS -->
+            <link rel="stylesheet" type="text/css" href="{% static 'vendors/amoeba/css/isotope.css' %}" media="screen" />
+    		<link rel="stylesheet" href="{% static 'vendors/amoeba/js/fancybox/jquery.fancybox.css' %}" type="text/css" media="screen" />
+            <link rel="stylesheet" href="{% static 'vendors/amoeba/css/style.css' %}">
+    		<!-- skin -->
+    		<link rel="stylesheet" href="{% static 'vendors/amoeba/skin/default.css' %}">
             <!-- This file store project specific CSS -->
             <link rel="stylesheet" href="{% static 'css/project.css' %}">
-            <link rel="stylesheet" type="text/css" href="{% static 'css/isotope.css' %}" media="screen" />
-    		<link rel="stylesheet" href="{% static 'js/fancybox/jquery.fancybox.css' %}" type="text/css" media="screen" />
-            <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    		<!-- skin -->
-    		<link rel="stylesheet" href="{% static 'skin/default.css' %}">
         {% endblock %}
 
         {% block extracss %}{% endblock %}
@@ -104,21 +105,20 @@
             <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
             <!-- Your stuff: Third-party javascript libraries go here -->
-
+            <script src="{% static 'vendors/amoeba/js/modernizr-2.6.2-respond-1.1.0.min.js' %}"></script>
+        	<script src="{% static 'vendors/amoeba/js/jquery.easing.1.3.js' %}"></script>
+            <script src="{% static 'vendors/amoeba/js/jquery.isotope.min.js' %}"></script>
+        	<script src="{% static 'vendors/amoeba/js/jquery.nicescroll.min.js' %}"></script>
+        	<script src="{% static 'vendors/amoeba/js/fancybox/jquery.fancybox.pack.js' %}"></script>
+        	<script src="{% static 'vendors/amoeba/js/skrollr.min.js' %}"></script>
+        	<script src="{% static 'vendors/amoeba/js/jquery.scrollTo-1.4.3.1-min.js' %}"></script>
+        	<script src="{% static 'vendors/amoeba/js/jquery.localscroll-1.2.7-min.js' %}"></script>
+        	<script src="{% static 'vendors/amoeba/js/stellar.js' %}"></script>
+        	<script src="{% static 'vendors/amoeba/js/jquery.appear.js' %}"></script>
+        	<script src="{% static 'vendors/amoeba/js/validate.js' %}"></script>
+            <script src="{% static 'vendors/amoeba/js/main.js' %}"></script>
             <!-- place project specific Javascript in this file -->
             <script src="{% static 'js/project.js' %}"></script>
-            <script src="{% static 'js/modernizr-2.6.2-respond-1.1.0.min.js' %}"></script>
-        	<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
-            <script src="{% static 'js/jquery.isotope.min.js' %}"></script>
-        	<script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
-        	<script src="{% static 'js/fancybox/jquery.fancybox.pack.js' %}"></script>
-        	<script src="{% static 'js/skrollr.min.js' %}"></script>
-        	<script src="{% static 'js/jquery.scrollTo-1.4.3.1-min.js' %}"></script>
-        	<script src="{% static 'js/jquery.localscroll-1.2.7-min.js' %}"></script>
-        	<script src="{% static 'js/stellar.js' %}"></script>
-        	<script src="{% static 'js/jquery.appear.js' %}"></script>
-        	<script src="{% static 'js/validate.js' %}"></script>
-            <script src="{% static 'js/main.js' %}"></script>
         {% endblock javascript %}
 
         {% block extrajs %}{% endblock %}
