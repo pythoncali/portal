@@ -12,9 +12,6 @@
         <div class="col-lg-12">
             <h1 class="page-header">{{ articulo.titulo }}</h1>
         </div>
-        <div class="col-lg-12">
-            <h4>por {{ articulo.autor.get_full_name }}</h4>
-        </div>
     </div>
     <!-- /.row -->
 
@@ -23,9 +20,17 @@
             <!-- Blog Post Content Column -->
             <div class="col-lg-12">
                 <!-- Blog Post -->
-                <hr>
-                <!-- Date/Time -->
-                <p>Fecha de publicación: {{ articulo.creado_en }}</p>
+                <div class="postmetadata">
+                    <ul>
+                        <li><i class="lead fa fa-user"></i> <a href="#">{{ articulo.autor.get_full_name }}</a></li>
+                        <li><i class="fa fa-calendar"></i>Fecha de publicación: {{ articulo.creado_en }}</li>
+                        <li><i class="fa fa-tag"></i>
+                            {% for tag in articulo.tags.all %}
+                                <a href="#">{{ tag }}</a>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
                 <hr>
                 <!-- Preview Image -->
                 <img src="{{ MEDIA_URL }}{{ articulo.imagen_destacada }}" alt="article pic" width="100%">
@@ -44,21 +49,6 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
-                </div>
-
-                <hr>
-                <!-- Posted Comments -->
-                <!-- Example structure for a comment -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
                 </div>
             </div>
         </div>

@@ -23,6 +23,11 @@
                         <ul>
                             <li><i class="lead fa fa-user"></i> <a href="#">{{ articulo.autor.get_full_name }}</a></li>
                             <li><i class="fa fa-calendar"></i>{{ articulo.creado_en }}</li>
+                            <li><i class="fa fa-tag"></i>
+                                {% for tag in articulo.tags.all %}
+                                    <a href="#">{{ tag }}</a>
+                                {% endfor %}
+                            </li>
                         </ul>
                     </div>
                     <hr>
