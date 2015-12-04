@@ -36,6 +36,8 @@
                     <p>{{ articulo.contenido|truncatechars:250 }}</p>
                     <a class="btn btn-primary" href="{% url 'detalle_articulo' articulo.slug %}">Seguir Leyendo</i></a>
                     <hr>
+                {% empty %}
+                    <h4 class="no-data">Aun no hemos escrito nuestro primer articulo. <a href="{% url 'crear_articulo' %}">Se el primero en escribir algo para la comunidad!</a></h4>
                 {% endfor %}
                 <hr>
                 <!-- Pager -->
