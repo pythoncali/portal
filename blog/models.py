@@ -55,12 +55,6 @@ class ArticuloManager(models.Manager):
         articulo = Articulo.objects.filter(estado='b')
         return articulo
 
-    def get_by_autor(self):
-        pass
-
-    def get_by_tags(self):
-        pass
-
 
 class Articulo(models.Model):
     """Clase para definir el modelo y estructura de las publicaciones del

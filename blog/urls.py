@@ -1,8 +1,7 @@
 from django.conf.urls import url
-from .views import (ListaArticulos, DetalleArticulo, CrearArticulo,
-                    CrearCategoria, ListaCategorias, blog_list)
+from .views import (DetalleArticulo, CrearArticulo, CrearCategoria,
+                    ListaCategorias, blog_list)
 
-# Crear URL's para vistas CrearArticulo y EditarArticulo
 
 urlpatterns = [
     url(r'^$', blog_list, name="lista_articulos"),
