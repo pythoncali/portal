@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}{{ articulo.titulo }}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ articulo.titulo }}</h1>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Content Row -->
+        <div class="row">
+            <!-- Blog Post Content Column -->
+            <div class="col-lg-12">
+                <!-- Blog Post -->
+                <div class="postmetadata">
+                    <ul>
+                        <li><i class="lead fa fa-user"></i> <a href="#">{{ articulo.autor.get_full_name }}</a></li>
+                        <li><i class="fa fa-calendar"></i>Fecha de publicación: {{ articulo.creado_en }}</li>
+                        <li><i class="fa fa-tag"></i>
+                            {% for tag in articulo.tags.all %}
+                                <a href="#">{{ tag }}</a>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+                <!-- Preview Image -->
+                <img src="{{ MEDIA_URL }}{{ articulo.imagen_destacada }}" alt="article pic" width="100%">
+                <hr>
+                <!-- Post Content -->
+                <p>{{ articulo.contenido }}</p>
+                <hr>
+                <!-- Blog Comments -->
+
+                <!-- Comments Form -->
+                <div class="well">
+                    <h4>Deja un comentario:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- /.row -->
+{% endblock content %}

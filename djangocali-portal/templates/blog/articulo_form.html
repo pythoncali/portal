@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %} Crear Articulo {% endblock %}
+
+{% block content %}
+
+    <div class="container" style="padding-top:30px; padding-bottom: 30px;">
+        <div class="8u skel-cell-important">
+            <section>
+                <form enctype="multipart/form-data" action="" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" name="crear_articulo" value="Publicar">
+                </form>
+            </section>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -5,8 +5,6 @@ django==1.8.4
 django-environ==0.3.0
 django-secure==1.0.1
 
-
-
 # Forms
 django-braces==1.8.1
 django-crispy-forms==1.5.0
@@ -36,9 +34,8 @@ pytz==2015.4
 django-redis==4.2.0
 redis>=2.10.0
 
-
+# Celery support
 celery==3.1.18
-
 
 # Your custom requirements go here
 django-taggit==0.17.0

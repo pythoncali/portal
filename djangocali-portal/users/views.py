@@ -26,7 +26,9 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
 
-    fields = ['name', ]
+    fields = ['name', 'picture', 'blog_account', 'facebook_account',
+              'google_plus_account', 'twitter_account', 'github_account',
+              'linkedin_account', 'profile', 'short_bio', 'bio']
 
     # we already imported User in the view code above, remember?
     model = User
@@ -41,8 +43,9 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         return User.objects.get(username=self.request.user.username)
 
 
-class UserListView(LoginRequiredMixin, ListView):
+class UserListView(ListView):
     model = User
     # These next two lines tell the view to index lookups by username
     slug_field = "username"
     slug_url_kwarg = "username"
+    template_name = "pages/about.html"

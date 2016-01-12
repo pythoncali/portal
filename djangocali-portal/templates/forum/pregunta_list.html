@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ block.super }} - El Foro{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% for pregunta in lista_preguntas %}
+            <p>
+                {{ pregunta.titulo }}
+            </p>
+            <p>
+                {{ pregunta.autor }}
+            </p>
+            <p>
+                {{ pregunta.descripcion }}
+            </p>
+        {% endfor %}        
+    </div>
+
+{% endblock %}

@@ -32,6 +32,7 @@ pip-log.txt
 .coverage
 .tox
 nosetests.xml
+htmlcov
 
 # Translations
 *.mo
@@ -54,6 +55,11 @@ node_modules/
 
 # virtual environments
 .env
+env
 
-# ignore vagrant 
+# ignore vagrant
 .vagrant
+
+# ignore media files
+djangocali-portal/media/*
+djangocali-portal/static_old/*

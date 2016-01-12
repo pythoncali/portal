@@ -1,16 +1,37 @@
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq build-essential gettext python-dev zlib1g-dev libpq-dev xvfb
-  - sudo apt-get install -qq libtiff4-dev libjpeg8-dev libfreetype6-dev liblcms1-dev libwebp-dev
-  - sudo apt-get install -qq graphviz-dev python-setuptools python3-dev python-virtualenv python-pip
-  - sudo apt-get install -qq firefox automake libtool libreadline6 libreadline6-dev libreadline-dev
-  - sudo apt-get install -qq libsqlite3-dev libxml2 libxml2-dev libssl-dev libbz2-dev wget curl llvm
 language: python
+
 python:
   - "3.4"
+env:
+  - DATABASE_URL='postgresql://postgres:@localhost:5432/my_db' DJANGO_SECRET_KEY=CambiameDePorDios12345
+
+services:
+  - postgresql
+
+addons:
+  postgresql: "9.3"
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq build-essential gettext python-dev zlib1g-dev
+  - sudo apt-get install -qq libpq-dev libtiff4-dev libjpeg8-dev libfreetype6-dev
+  - sudo apt-get install -qq liblcms1-dev libwebp-dev graphviz-dev python-setuptools
+  - sudo apt-get install -qq python3-dev python-virtualenv
+  - sudo apt-get install -qq firefox automake libtool libreadline6 libreadline6-dev
+  - sudo apt-get install -qq libreadline-dev libsqlite3-dev libxml2 libxml2-dev
+  - sudo apt-get install -qq libssl-dev libbz2-dev wget curl llvm python3-setuptools
+  - sudo easy_install3 pip
+
 install:
-  - "pip install hitch"
-  - "cd tests"
-  - "hitch init"
+  - pip3 install -r requirements/local.txt
+
+before_script:
+  - psql -c 'create database my_db;' -U postgres
+
 script:
-  - "hitch test . --extra '{\"xvfb\":true, \"pause_on_failure\":false}'"
+  - python manage.py check
+  - python manage.py migrate --noinput
+  - coverage run manage.py test
+  - coverage report
+after_success:
+  - coveralls

@@ -55,12 +55,6 @@ class ArticuloManager(models.Manager):
         articulo = Articulo.objects.filter(estado='b')
         return articulo
 
-    def get_by_autor(self):
-        pass
-
-    def get_by_tags(self):
-        pass
-
 
 class Articulo(models.Model):
     """Clase para definir el modelo y estructura de las publicaciones del
@@ -73,8 +67,7 @@ class Articulo(models.Model):
     creado_en = models.DateTimeField(auto_now_add=True, editable=False)
     modificado_en = models.DateTimeField(auto_now=True)
     titulo = models.CharField(max_length=50, null=False, unique=True)
-    imagen_destacada = models.ImageField(upload_to='articles_pics/%Y-%m-%d/',
-                                         null=True,
+    imagen_destacada = models.ImageField(upload_to='articulos/', null=True,
                                          blank=True)
     contenido = models.TextField(null=False)
     autor = models.ForeignKey(settings.AUTH_USER_MODEL)

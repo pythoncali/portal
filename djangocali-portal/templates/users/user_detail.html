@@ -1,36 +1,67 @@
 {% extends "base.html" %}
-{% load static %}
+{% load staticfiles %}
 
-{% block title %}User: {{ object.username }}{% endblock %}
+{% block title %}Usuario: {{ object.username }}{% endblock %}
 
 {% block content %}
-<div class="container">
-
-  <div class="row">
-    <div class="col-sm-12">
-
-      <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
-      {% endif %}
+    <div class="container">
+        <div class="row">
+            <h2>{{ object.username }}</h2>
+            {% if object.name %}<p class="lead">{{ object.name }}</p>{% endif %}
+            <div class="col-sm-4">
+                {% if object.picture %}
+                    <img src="{{ MEDIA_URL }}{{ object.picture }}" alt="profile_pic" height="300" />
+                {% else %}
+                    <img src="{% static 'img/profile_pic.png' %}" alt="" />
+                {% endif %}
+            </div>
+            <div class="col-sm-8">
+                {% if object.bio %}<p>{{ object.bio }}</p> {% endif %}
+                <ul class="social-network social-circle">
+                    {% if object.blog_account %}
+                        <li>
+                            <a href="{{ object.blog_account }}" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if object.twitter_account %}
+                        <li>
+                            <a href="{{ object.twitter_account }}" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if object.github_account %}
+                        <li>
+                            <a href="{{ object.github_account }}" class="icoGithub" title="Github"><i class="fa fa-github"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if object.linkedin_account %}
+                        <li>
+                            <a href="{{ object.linkedin_account }}" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if object.google_plus_account %}
+                        <li>
+                            <a href="{{ object.google_plus_account }}" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if object.facebook_account %}
+                        <li>
+                            <a href="{{ object.facebook_account }}" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        {% if object == request.user %}
+            <!-- Action buttons -->
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <a class="btn btn-primary" href="{% url 'users:update' %}">My Info</a>
+                    <a class="btn btn-primary" href="{% url 'account_email' %}">E-Mail</a>
+                    <!-- Your Stuff: Custom user template urls -->
+                </div>
+            </div>
+            <!-- End Action buttons -->
+        {% endif %}
     </div>
-  </div>
 
-{% if object == request.user %}
-<!-- Action buttons -->
-<div class="row">
-
-  <div class="col-sm-12 ">
-    <a class="btn btn-primary" href="{% url 'users:update' %}">My Info</a>
-    <a class="btn btn-primary" href="{% url 'account_email' %}">E-Mail</a>
-    <!-- Your Stuff: Custom user template urls -->
-  </div>
-
-</div>
-<!-- End Action buttons -->
-{% endif %}
-
-
-</div>
 {% endblock content %}
-
