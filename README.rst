@@ -6,6 +6,11 @@ Estado del proyecto
 
 |Build Status|
 
+.. image:: https://codeship.com/projects/78b45310-9c32-0133-b04f-6a6b57a3cbcb/status?branch=master
+   :target: http://www.djangocali.com
+   :alt: Shipping status
+   
+
 Motivaciones
 ------------
 
