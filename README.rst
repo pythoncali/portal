@@ -1,360 +1,59 @@
-djangocali-portal
-==============================
+PORTAL DJANGO CALI
+==================
 
-django cali website
+Estado del proyecto
+-------------------
 
+|Build Status|
 
-LICENSE: BSD
-
-Settings
+Motivaciones
 ------------
 
-djangocali-portal relies extensively on environment settings which **will not work with Apache/mod_wsgi setups**. It has been deployed successfully with both Gunicorn/Nginx and even uWSGI/Nginx.
+Cuando empezó la comunidad a reunirse, una de los intereses era no solo
+hablar, se quería crear un medio que permitiera aprender haciendo y de
+paso también tener un espacio donde mostrar al mundo un poco de la
+comunidad.
 
-For configuration purposes, the following table maps the 'djangocali-portal' environment variables to their Django setting:
-
-======================================= =========================== ============================================== ======================================================================
-Environment Variable                    Django Setting              Development Default                            Production Default
-======================================= =========================== ============================================== ======================================================================
-DJANGO_CACHES                           CACHES (default)            locmem                                         redis
-DJANGO_DATABASES                        DATABASES (default)         See code                                       See code
-DJANGO_DEBUG                            DEBUG                       True                                           False
-DJANGO_SECRET_KEY                       SECRET_KEY                  CHANGEME!!!                                    raises error
-DJANGO_SECURE_BROWSER_XSS_FILTER        SECURE_BROWSER_XSS_FILTER   n/a                                            True
-DJANGO_SECURE_SSL_REDIRECT              SECURE_SSL_REDIRECT         n/a                                            True
-DJANGO_SECURE_CONTENT_TYPE_NOSNIFF      SECURE_CONTENT_TYPE_NOSNIFF n/a                                            True
-DJANGO_SECURE_FRAME_DENY                SECURE_FRAME_DENY           n/a                                            True
-DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS   HSTS_INCLUDE_SUBDOMAINS     n/a                                            True
-DJANGO_SESSION_COOKIE_HTTPONLY          SESSION_COOKIE_HTTPONLY     n/a                                            True
-DJANGO_SESSION_COOKIE_SECURE            SESSION_COOKIE_SECURE       n/a                                            False
-DJANGO_DEFAULT_FROM_EMAIL               DEFAULT_FROM_EMAIL          n/a                                            "djangocali-portal <noreply@example.com>"
-DJANGO_SERVER_EMAIL                     SERVER_EMAIL                n/a                                            "djangocali-portal <noreply@example.com>" 
-DJANGO_EMAIL_SUBJECT_PREFIX             EMAIL_SUBJECT_PREFIX        n/a                                            "[djangocali-portal] "
-======================================= =========================== ============================================== ======================================================================
-
-The following table lists settings and their defaults for third-party applications:
-
-======================================= =========================== ============================================== ======================================================================
-Environment Variable                    Django Setting              Development Default                            Production Default
-======================================= =========================== ============================================== ======================================================================
-DJANGO_AWS_ACCESS_KEY_ID                AWS_ACCESS_KEY_ID           n/a                                            raises error
-DJANGO_AWS_SECRET_ACCESS_KEY            AWS_SECRET_ACCESS_KEY       n/a                                            raises error
-DJANGO_AWS_STORAGE_BUCKET_NAME          AWS_STORAGE_BUCKET_NAME     n/a                                            raises error
-
-DJANGO_MAILGUN_API_KEY                  MAILGUN_ACCESS_KEY          n/a                                            raises error
-DJANGO_MAILGUN_SERVER_NAME              MAILGUN_SERVER_NAME         n/a                                            raises error
-======================================= =========================== ============================================== ======================================================================
-
-Getting up and running
+El Desarrollo del Idea
 ----------------------
 
-Basics
-^^^^^^
-
-The steps below will get you up and running with a local development environment. We assume you have the following installed:
-
-* pip
-* virtualenv
-* PostgreSQL
-
-First make sure to create and activate a virtualenv_, then open a terminal at the project root and install the requirements for local development::
-
-    $ pip install -r requirements/local.txt
-
-.. _virtualenv: http://docs.python-guide.org/en/latest/dev/virtualenvs/
-
-Create a local PostgreSQL database::
-
-    $ createdb djangocali-portal
-
-Run ``migrate`` on your new database::
-
-    $ python manage.py migrate
-
-You can now run the ``runserver_plus`` command::
-
-    $ python manage.py runserver_plus
-
-Open up your browser to http://127.0.0.1:8000/ to see the site running locally.
-
-Setting Up Your Users
-^^^^^^^^^^^^^^^^^^^^^
-
-To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
-
-To create an **superuser account**, use this command::
-
-    $ python manage.py createsuperuser
-
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
-
-Test coverage
-^^^^^^^^^^^^^
-
-To run the tests, check your test coverage, and generate an HTML coverage report::
-
-    $ coverage run manage.py test
-    $ coverage html
-    $ open htmlcov/index.html
-
-Live reloading and Sass CSS compilation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-If you'd like to take advantage of live reloading and Sass / Compass CSS compilation you can do so with a little bit of prep work.
-
-Make sure that nodejs_ is installed. Then in the project root run::
-
-    $ npm install
-
-.. _nodejs: http://nodejs.org/download/
-
-If you don't already have it, install `compass` (doesn't hurt if you run this command twice)::
-
-    gem install compass
-
-Now you just need::
-
-    $ grunt serve
-
-The base app will now run as it would with the usual ``manage.py runserver`` but with live reloading and Sass compilation enabled.
-
-To get live reloading to work you'll probably need to install an `appropriate browser extension`_
-
-.. _appropriate browser extension: http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
-
-
-Celery
-^^^^^^
-This app comes with Celery.
-
-To run a celery worker:
-
-.. code-block:: bash
-
-    cd djangocali-portal
-    celery -A djangocali-portal.taskapp worker -l info
-
-Please note: For Celerys import magic to work, it is important *where* the celery commands are run. If you are in the same folder with *manage.py*, you should be right.
-
-
-
-
-It's time to write the code!!!
-
-
-Running end to end integration tests
-------------------------------------
-
-N.B. The integration tests will not run on Windows.
-
-To install the test runner::
-
-  $ pip install hitch
-
-To run the tests, enter the djangocali-portal/tests directory and run the following commands::
-
-  $ hitch init
-
-Then run the stub test::
-
-  $ hitch test stub.test
-
-This will download and compile python, postgres and redis and install all python requirements so the first time it runs it may take a while.
-
-Subsequent test runs will be much quicker.
-
-The testing framework runs Django, Celery (if enabled), Postgres, HitchSMTP (a mock SMTP server), Firefox/Selenium and Redis.
-
-
-Deployment
-----------
-
-It is possible to deploy to Heroku, to your own server by using Dokku, an open source Heroku clone or using docker-compose.
-
-Heroku
-^^^^^^
-
-Run these commands to deploy the project to Heroku:
-
-.. code-block:: bash
-
-    heroku create --buildpack https://github.com/heroku/heroku-buildpack-python
-
-    heroku addons:create heroku-postgresql:hobby-dev
-    heroku pg:backups schedule --at '02:00 America/Los_Angeles' DATABASE_URL
-    heroku pg:promote DATABASE_URL
-
-    heroku addons:create heroku-redis:hobby-dev
-    heroku addons:create mailgun
-
-    heroku config:set DJANGO_SECRET_KEY=`openssl rand -base64 32`
-    heroku config:set DJANGO_SETTINGS_MODULE='config.settings.production'
-
-    heroku config:set DJANGO_AWS_ACCESS_KEY_ID=YOUR_AWS_ID_HERE
-    heroku config:set DJANGO_AWS_SECRET_ACCESS_KEY=YOUR_AWS_SECRET_ACCESS_KEY_HERE
-    heroku config:set DJANGO_AWS_STORAGE_BUCKET_NAME=YOUR_AWS_S3_BUCKET_NAME_HERE
-
-    heroku config:set DJANGO_MAILGUN_SERVER_NAME=YOUR_MALGUN_SERVER
-    heroku config:set DJANGO_MAILGUN_API_KEY=YOUR_MAILGUN_API_KEY
-    
-    heroku config:set PYTHONHASHSEED=random
-    
-    git push heroku master
-    heroku run python manage.py migrate
-    heroku run python manage.py check --deploy
-    heroku run python manage.py createsuperuser
-    heroku open
-
-Dokku
-^^^^^
-
-You need to make sure you have a server running Dokku with at least 1GB of RAM. Backing services are
-added just like in Heroku however you must ensure you have the relevant Dokku plugins installed.
-
-.. code-block:: bash
-
-    cd /var/lib/dokku/plugins
-    git clone https://github.com/rlaneve/dokku-link.git link
-    git clone https://github.com/luxifer/dokku-redis-plugin redis
-    git clone https://github.com/jezdez/dokku-postgres-plugin postgres
-    dokku plugins-install
-
-You can specify the buildpack you wish to use by creating a file name .env containing the following.
-
-.. code-block:: bash
-
-    export BUILDPACK_URL=<repository>
-
-You can then deploy by running the following commands.
-
-..  code-block:: bash
-
-    git remote add dokku dokku@yourservername.com:djangocali-portal
-    git push dokku master
-    ssh -t dokku@yourservername.com dokku redis:create djangocali-portal-redis
-    ssh -t dokku@yourservername.com dokku redis:link djangocali-portal-redis djangocali-portal
-    ssh -t dokku@yourservername.com dokku postgres:create djangocali-portal-postgres
-    ssh -t dokku@yourservername.com dokku postgres:link djangocali-portal-postgres djangocali-portal
-    ssh -t dokku@yourservername.com dokku config:set djangocali-portal DJANGO_SECRET_KEY=RANDOM_SECRET_KEY_HERE
-    ssh -t dokku@yourservername.com dokku config:set djangocali-portal DJANGO_SETTINGS_MODULE='config.settings.production'
-    ssh -t dokku@yourservername.com dokku config:set djangocali-portal DJANGO_AWS_ACCESS_KEY_ID=YOUR_AWS_ID_HERE
-    ssh -t dokku@yourservername.com dokku config:set djangocali-portal DJANGO_AWS_SECRET_ACCESS_KEY=YOUR_AWS_SECRET_ACCESS_KEY_HERE
-    ssh -t dokku@yourservername.com dokku config:set djangocali-portal DJANGO_AWS_STORAGE_BUCKET_NAME=YOUR_AWS_S3_BUCKET_NAME_HERE
-    ssh -t dokku@yourservername.com dokku config:set djangocali-portal DJANGO_MAILGUN_API_KEY=YOUR_MAILGUN_API_KEY
-    ssh -t dokku@yourservername.com dokku config:set djangocali-portal DJANGO_MAILGUN_SERVER_NAME=YOUR_MAILGUN_SERVER
-    ssh -t dokku@yourservername.com dokku run djangocali-portal python manage.py migrate
-    ssh -t dokku@yourservername.com dokku run djangocali-portal python manage.py createsuperuser
-
-When deploying via Dokku make sure you backup your database in some fashion as it is NOT done automatically.
-
-Docker
-^^^^^^
-
-**Warning**
-
-Docker is evolving extremely fast, but it has still some rough edges here and there. Compose is currently (as of version 1.4)
-not considered production ready. That means you won't be able to scale to multiple servers and you won't be able to run
-zero downtime deployments out of the box. Consider all this as experimental until you understand all the  implications
-to run docker (with compose) on production.
-
-**Run your app with docker-compose**
-
-Prerequisites:
-
-* docker (tested with 1.8)
-* docker-compose (tested with 0.4)
-
-Before you start, check out the `docker-compose.yml` file in the root of this project. This is where each component
-of this application gets its configuration from. It consists of a `postgres` service that runs the database, `redis`
-for caching, `nginx` as reverse proxy and last but not least the `django` application run by gunicorn.
-Since this application also runs Celery, there are two more services with a service called `celeryworker` that runs the
-celery worker process and `celerybeat` that runs the celery beat process.
-
-
-
-All of these services except `redis` rely on environment variables set by you. There is an `env.example` file in the
-root directory of this project as a starting point. Add your own variables to the file and rename it to `.env`. This
-file won't be tracked by git by default so you'll have to make sure to use some other mechanism to copy your secret if
-you are relying solely on git.
-
-
-By default, the application is configured to listen on all interfaces on port 80. If you want to change that, open the
-`docker-compose.yml` file and replace `0.0.0.0` with your own ip. If you are using `nginx-proxy`_ to run multiple
-application stacks on one host, remove the port setting entirely and add `VIRTUAL_HOST=example.com` to your env file.
-This pass all incoming requests on `nginx-proxy` to the nginx service your application is using.
-
-.. _nginx-proxy: https://github.com/jwilder/nginx-proxy
-
-Postgres is saving its database files to `/data/djangocali-portal/postgres` by default. Change that if you wan't
-something else and make sure to make backups since this is not done automatically.
-
-To get started, pull your code from source control (don't forget the `.env` file) and change to your projects root
-directory.
-
-You'll need to build the stack first. To do that, run::
-
-    docker-compose build
-
-Once this is ready, you can run it with::
-
-    docker-compose up
-
-
-To run a migration, open up a second terminal and run::
-
-   docker-compose run django python manage.py migrate
-
-To create a superuser, run::
-
-   docker-compose run django python manage.py createsuperuser
-
-
-If you need a shell, run::
-
-   docker-compose run django python manage.py shell_plus
-
-
-Once you are ready with your initial setup, you wan't to make sure that your application is run by a process manager to
-survive reboots and auto restarts in case of an error. You can use the process manager you are most familiar with. All
-it needs to do is to run `docker-compose up` in your projects root directory.
-
-If you are using `supervisor`, you can use this file as a starting point::
-
-    [program:djangocali-portal]
-    command=docker-compose up
-    directory=/path/to/djangocali-portal
-    redirect_stderr=true
-    autostart=true
-    autorestart=true
-    priority=10
-
-
-Place it in `/etc/supervisor/conf.d/djangocali-portal.conf` and run::
-
-    supervisorctl reread
-    supervisorctl start djangocali-portal
-
-
-
-To get the status, run::
-
-    supervisorctl status
-
-If you have errors, you can always check your stack with `docker-compose`. Switch to your projects root directory and run::
-
-    docker-compose ps
-
-
-to get an output of all running containers.
-
-To check your logs, run::
-
-    docker-compose logs
-
-If you want to scale your application, run::
-
-    docker-compose scale django=4
-    docker-compose scale celeryworker=2
-
-
-**Don't run the scale command on postgres or celerybeat**
+El ejercicio del grupo Django Cali, se concibió para que fuese empezando
+por lo básico hasta ir a lo mas pesado de crear una completa aplicación
+para entornos web, con Django como la herramienta de elección.
+
+Se inicia en un punto en el que están creados la estructura base de la
+aplicación y la estructura inicial de la aplicación blog.
+Adicionalmente, para implementar buenas practicas se uso una
+distribución del archivo settings para que este distribuido y pueda
+usarse en diferente entornos, sin que pongan en riesgo su información de
+contraseñas y otros elementos por el estilo.
+
+Una de las decisiones que se tomo, fue usar la plantilla
+`cookiecutter-django`_ creada por Daniel Roy Greenfeld, mejor conocido
+como `PyDanny`_ para la herramienta `cookiecutter`_, la cual fue creada
+por `Audrey Roy Greenfeld`_, autores del libro `Two Scoops of Django`_
+
+Aportar al Desarrollo
+---------------------
+
+En caso que este interesado en aportar a nuestro desarrollo, puede
+encontrar mas información de nivel técnico en la siguiente `plantilla`_
+
+La Licencia
+-----------
+
+Pensando en lo importante que es trabajar en equipo, y que el motor tras
+Django es su comunidad con un fuerte sentimiento OpenSource, se eligió
+la licencia `BSD`_ y también tenemos un pequeño `resumen`_
+
+.. _cookiecutter-django: https://github.com/pydanny/cookiecutter-django
+.. _PyDanny: https://github.com/pydanny/
+.. _cookiecutter: https://github.com/audreyr/cookiecutter
+.. _Audrey Roy Greenfeld: https://github.com/audreyr
+.. _Two Scoops of Django: http://twoscoopspress.com/
+.. _plantilla: https://github.com/sebastian-code/portal/blob/master/README.rst
+.. _BSD: https://es.wikipedia.org/wiki/Licencia_BSD
+.. _resumen: https://github.com/sebastian-code/portal/blob/master/LICENSE
+
+.. |Build Status| image:: https://travis-ci.org/djangocali/portal.svg?branch=master
+   :target: https://travis-ci.org/djangocali/portal
