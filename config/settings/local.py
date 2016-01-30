@@ -10,6 +10,11 @@ Local settings
 
 from .common import *  # noqa
 
+# model_mommy custom field generator for AutoSlugField
+MOMMY_CUSTOM_FIELDS_GEN = {
+    'autoslug.fields.AutoSlugField': 'blog.tests.gen_func',
+}
+
 # DEBUG
 # ------------------------------------------------------------------------------
 DEBUG = env.bool('DJANGO_DEBUG', default=True)
