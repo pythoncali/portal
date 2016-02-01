@@ -19,16 +19,16 @@ class ForoManager(models.Manager):
     # Estoy poniendo las funciones vacias para planear las interacciones y
     # posteriormente definer la forma de interaccion.
 
-    def get_unanswered_questions():
+    def get_unanswered_questions(self):
         pass
 
-    def get_answered_questions():
+    def get_answered_questions(self):
         pass
 
-    def get_questions_answers():
+    def get_questions_answers(self):
         pass
 
-    def get_answers():
+    def get_answers(self):
         pass
 
 
