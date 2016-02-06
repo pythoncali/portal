@@ -1,6 +1,7 @@
 PORTAL DJANGO CALI
 ==================
 
+
 Estado del proyecto
 -------------------
 
