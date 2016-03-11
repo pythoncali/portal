@@ -11,29 +11,31 @@ def gen_func():
 
 class TestModels(TestCase):
 
+    def setUp(self):
+        self.articulo = mommy.make(Articulo)
+        self.articulo_p = mommy.make(Articulo, estado="p")
+        self.categoria = mommy.make(Categoria)
+
     def test_model_articulo(self):
-        articulo = mommy.make(Articulo)
-        self.assertTrue(isinstance(articulo, Articulo))
-        self.assertEqual(articulo.__str__(), articulo.titulo)
-        self.assertEqual(articulo.slug, gen_func())
-        self.assertNotEqual(articulo.creado_en, articulo.modificado_en)
+
+        self.assertTrue(isinstance(self.articulo, Articulo))
+        self.assertEqual(self.articulo.__str__(), self.articulo.titulo)
+        self.assertEqual(self.articulo.slug, gen_func())
+        self.assertNotEqual(self.articulo.creado_en, self.articulo.modificado_en)
 
     def test_model_categoria(self):
-        categoria = mommy.make(Categoria)
-        self.assertTrue(isinstance(categoria, Categoria))
-        self.assertEqual(categoria.__str__(), categoria.nombre)
+        self.assertTrue(isinstance(self.categoria, Categoria))
+        self.assertEqual(self.categoria.__str__(), self.categoria.nombre)
 
     def test_articulo_drafts(self):
-        articulo = mommy.make(Articulo)
         self.assertTrue(Articulo.objects.get_drafts())
         self.assertEqual(
-            Articulo.objects.get_drafts()[0].titulo, articulo.titulo)
+            Articulo.objects.get_drafts()[0].titulo, self.articulo.titulo)
 
     def test_articulo_published(self):
-        articulo = mommy.make(Articulo, estado="p")
         self.assertTrue(Articulo.objects.get_published())
         self.assertEqual(
-            Articulo.objects.get_published()[0].titulo, articulo.titulo)
+            Articulo.objects.get_published()[0].titulo, self.articulo_p.titulo)
 
 
 class TestViews(TestCase):
