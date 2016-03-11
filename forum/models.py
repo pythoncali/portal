@@ -18,18 +18,25 @@ class ForoManager(models.Manager):
 
     # Estoy poniendo las funciones vacias para planear las interacciones y
     # posteriormente definer la forma de interaccion.
+    # Introduje un par de lineas como ideas sueltas para no perder la idea.
+    # pero esto requiere añadir un campo al modelo. ¿Hay alguna otra forma?
 
-    def get_unanswered_questions(self):
+    def get_unanswered():
+        # return Pregunta.objects.filter(tiene_respuesta=False)
         pass
 
-    def get_answered_questions(self):
+    def get_answered():
+        # return Pregunta.objects.filter(tiene_respuesta=True)
         pass
 
-    def get_questions_answers(self):
-        pass
+    def get_answers_count(self):
+        return Respuesta.objects.filter(pregunta=self).count()
+
+    def get_accepted_answer(self):
+        return Respuesta.objects.get(pregunta=self, aceptada=True)
 
     def get_answers(self):
-        pass
+        return Respuesta.objects.filter(pregunta=self)
 
 
 class Pregunta(models.Model):
