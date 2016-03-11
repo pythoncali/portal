@@ -22,12 +22,10 @@ class ForoManager(models.Manager):
     # pero esto requiere añadir un campo al modelo. ¿Hay alguna otra forma?
 
     def get_unanswered():
-        # return Pregunta.objects.filter(tiene_respuesta=False)
-        pass
+        return Pregunta.objects.filter(tiene_respuesta=False)
 
     def get_answered():
-        # return Pregunta.objects.filter(tiene_respuesta=True)
-        pass
+        return Pregunta.objects.filter(tiene_respuesta=True)
 
     def get_answers_count(self):
         return Respuesta.objects.filter(pregunta=self).count()
@@ -37,6 +35,19 @@ class ForoManager(models.Manager):
 
     def get_answers(self):
         return Respuesta.objects.filter(pregunta=self)
+
+
+class Votos(models.Model):
+    '''Modelo para llevar el registro de votos aplicados a los registros de los
+    otros dos modelos. La idea principal es llevar un registro de
+    transaccionalidad, para registrar adecuadamente un voto, positivo o
+    negativo en el caso de las respuestas, o positivo unicamente en el caso de
+    las preguntas.
+    '''
+    creado_en = models.DateTimeField(auto_now_add=True, editable=False)
+    modificado_en = models.DateTimeField(auto_now=True)
+    voto = models.SmallIntegerField()
+    votante = models.ForeignKey(settings.AUTH_USER_MODEL)
 
 
 class Pregunta(models.Model):
@@ -50,6 +61,8 @@ class Pregunta(models.Model):
     titulo = models.CharField(max_length=255)
     descripcion = models.TextField(max_length=3000)
     slug = AutoSlugField(populate_from='titulo', unique=True, editable=False)
+    tiene_respuesta = models.BooleanField(default=False)
+    votos = models.ManyToManyField(Votos)
     tags = TaggableManager()
     objects = ForoManager()
 
@@ -77,6 +90,7 @@ class Respuesta(models.Model):
     votos = models.IntegerField(default=0)
     aceptada = models.BooleanField(default=False)
     slug = AutoSlugField(populate_from='titulo', unique=True, editable=False)
+    votos = models.ManyToManyField(Votos)
     tags = TaggableManager()
     objects = ForoManager()
 
