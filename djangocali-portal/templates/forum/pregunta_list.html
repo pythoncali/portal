@@ -1,22 +1,89 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block title %}{{ block.super }} - El Foro{% endblock %}
+{% block title %}{{ block.super }} - Foro{% endblock %}
 
 {% block content %}
 
     <div class="container">
-        {% for pregunta in lista_preguntas %}
-            <p>
-                {{ pregunta.titulo }}
-            </p>
-            <p>
-                {{ pregunta.autor }}
-            </p>
-            <p>
-                {{ pregunta.descripcion }}
-            </p>
-        {% endfor %}        
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">El Foro de la Comunidad</h1>
+                <h3>Un poco como StackOverflow, pero mas nuestro.</h3>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+                <!-- Blog Posts -->
+                {% for pregunta in lista_preguntas %}
+                    <h2><a href="{% url 'detalle_pregunta' pregunta.slug %}">{{ pregunta.titulo }}</a></h2>
+                    <div class="postmetadata">
+                        <ul>
+                            <li><i class="lead fa fa-user"></i> <a href="#">{{ pregunta.autor.get_full_name }}</a></li>
+                            <li><i class="fa fa-calendar"></i>{{ pregunta.creado_en }}</li>
+                            <li><i class="fa fa-tag"></i>
+                                {% for tag in pregunta.tags.all %}
+                                    <a href="#">{{ tag }}</a>
+                                {% endfor %}
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <p>{{ pregunta.descripcion|truncatechars:300 }}</p>
+                    <a class="btn btn-primary" href="{% url 'detalle_pregunta' pregunta.slug %}">Seguir Leyendo</i></a>
+                    <hr>
+                {% empty %}
+                    <h4 class="no-data">Aun no tenemos nuestra primer pregunta. <a href="{% url 'crear_pregunta' %}">¿Quieres preguntarle algo a la comunidad?</a></h4>
+                {% endfor %}
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    {% if lista_preguntas.has_previous %}
+                        <li class="previous"><a href="?page={{ lista_preguntas.previous_page_number }}">&larr; Mas Antiguas</a></li>
+                    {% endif %}
+                    <span class="current">
+                        Pagina {{ lista_preguntas.number }} de {{ lista_preguntas.paginator.num_pages }}.
+                    </span>
+                    {% if lista_preguntas.has_next %}
+                        <li class="next"><a href="?page={{ lista_preguntas.next_page_number }}">Mas Recientes &rarr;</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+                <!-- Blog Search Well -->
+                {% if request.user.is_authenticated %}
+                    <div class="well">
+                        <h4>Escribir una pregunta</h4>
+                        <a class="btn btn-success" href="{% url 'crear_pregunta' %}" title="Escribir Articulo"><span class="fa fa-pencil"></span> Hacer una nueva pregunta.</a>
+                        <!-- /.input-group -->
+                    </div>
+                {% endif %}
+                <div class="well">
+                    <h4>Buscar en el Foro</h4>
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Buscar</button>
+                        </span>
+                    </div>
+                    <!-- /.input-group -->
+                </div>                
+                <!-- Side Widget Well -->
+                <div class="well">
+                    <h4>CloudTag</h4>
+                    {% for tag in tags %}
+                        <p>
+                            {{tag}}
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 
-{% endblock %}
+{% endblock content %}
