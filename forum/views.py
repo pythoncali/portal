@@ -33,6 +33,7 @@ class ListaRespuestas(ListView):
 
 class DetallePregunta(DetailView):
     model = Pregunta
+    context_object_name = 'pregunta'
 
 
 class DetalleRespuesta(DetailView):
