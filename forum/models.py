@@ -97,7 +97,7 @@ class Respuesta(models.Model):
     class Meta:
         verbose_name = 'Respuesta'
         verbose_name_plural = 'Respuestas'
-        ordering = ('-aceptada', '-votos', 'creado_en',)
+        ordering = ('-aceptada', 'creado_en',)
 
     def __str__(self):
         return self.descripcion
