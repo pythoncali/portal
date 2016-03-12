@@ -101,3 +101,31 @@ class Respuesta(models.Model):
 
     def __str__(self):
         return self.descripcion
+
+    def voto_positivo(self):
+        self.votos.create(voto=1)
+
+    def voto_negativo(self):
+        self.votos.create(voto=-1)
+
+    def aceptar_respuesta(self):
+        self.aceptada = True
+        self.save()
+        self.question.tiene_respuesta = True
+        self.question.save()
+
+    def calcular_votos(self):
+        total_votos = self.votos_set.all().count()
+        up_votos = self.votos_set.filter(voto=1).count()
+        down_votos = self.votos_set.filter(voto=-1).count()
+        votos = up_votos - down_votos
+        return (total_votos, votos)
+
+    def get_votantes(self):
+        votos = self.votos_set.all()
+        lista_votantes = []
+        for voto in votos:
+            if voto.votante not in lista_votantes:
+                lista_votantes.append(voto.votante)
+
+        return lista_votantes
