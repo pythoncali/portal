@@ -42,15 +42,15 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'taggit',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'djangocali-portal.users',  # custom users app
     # Your stuff: custom apps go here
-    'blog',
-    'forum',
-    'taggit',
+    'djangocali-portal.blog',
+    'djangocali-portal.forum',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
