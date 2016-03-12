@@ -2,7 +2,7 @@ from django.db import models
 from taggit.managers import TaggableManager
 from django.conf import settings
 from autoslug import AutoSlugField
-#import user
+# import user
 
 '''
 La intencion basica del app es brindar un espacio del tipo Stack-Overflow donde
@@ -67,7 +67,7 @@ class Pregunta(models.Model):
     descripcion = models.TextField(max_length=3000)
     slug = AutoSlugField(populate_from='titulo', unique=True, editable=False)
     tiene_respuesta = models.BooleanField(default=False)
-    votos = models.ManyToManyField(Votos, blank=True)
+    votos = models.ManyToManyField(Votos, blank=True, limit_choices_to={'pk': 0})
     tags = TaggableManager(blank=True)
     objects = ForoManager()
 
@@ -95,7 +95,7 @@ class Respuesta(models.Model):
     votos = models.IntegerField(default=0)
     aceptada = models.BooleanField(default=False)
     slug = AutoSlugField(populate_from='descripcion', unique=True, editable=False)
-    votos = models.ManyToManyField(Votos, blank=True)
+    votos = models.ManyToManyField(Votos, blank=True, limit_choices_to={'pk': 0})
     tags = TaggableManager(blank=True)
     objects = ForoManager()
 
@@ -103,9 +103,6 @@ class Respuesta(models.Model):
         verbose_name = 'Respuesta'
         verbose_name_plural = 'Respuestas'
         ordering = ('-aceptada', 'creado_en',)
-
-    def __str__(self):
-        return self.pregunta
 
     def voto_positivo(self):
         self.votos.create(voto=1)
