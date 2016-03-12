@@ -2,6 +2,7 @@ from django.db import models
 from taggit.managers import TaggableManager
 from django.conf import settings
 from autoslug import AutoSlugField
+#import user
 
 '''
 La intencion basica del app es brindar un espacio del tipo Stack-Overflow donde
@@ -49,6 +50,10 @@ class Votos(models.Model):
     voto = models.SmallIntegerField()
     votante = models.ForeignKey(settings.AUTH_USER_MODEL)
 
+    class Meta:
+        verbose_name = 'Voto'
+        verbose_name_plural = 'Votos'
+
 
 class Pregunta(models.Model):
     '''La meta es crear un espacio donde sea posible hacer una pregunta a la
@@ -62,8 +67,8 @@ class Pregunta(models.Model):
     descripcion = models.TextField(max_length=3000)
     slug = AutoSlugField(populate_from='titulo', unique=True, editable=False)
     tiene_respuesta = models.BooleanField(default=False)
-    votos = models.ManyToManyField(Votos)
-    tags = TaggableManager()
+    votos = models.ManyToManyField(Votos, blank=True)
+    tags = TaggableManager(blank=True)
     objects = ForoManager()
 
     class Meta:
@@ -89,9 +94,9 @@ class Respuesta(models.Model):
     descripcion = models.TextField(max_length=2000)
     votos = models.IntegerField(default=0)
     aceptada = models.BooleanField(default=False)
-    slug = AutoSlugField(populate_from='titulo', unique=True, editable=False)
-    votos = models.ManyToManyField(Votos)
-    tags = TaggableManager()
+    slug = AutoSlugField(populate_from='descripcion', unique=True, editable=False)
+    votos = models.ManyToManyField(Votos, blank=True)
+    tags = TaggableManager(blank=True)
     objects = ForoManager()
 
     class Meta:
@@ -100,7 +105,7 @@ class Respuesta(models.Model):
         ordering = ('-aceptada', 'creado_en',)
 
     def __str__(self):
-        return self.descripcion
+        return self.pregunta
 
     def voto_positivo(self):
         self.votos.create(voto=1)
