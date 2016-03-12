@@ -7,16 +7,26 @@ from .models import Articulo, Categoria
 
 """
 ## TODO ##
-1. Hace falta la vista que permita editar los articulos creados para que sean
-actualizados.
-2. Hace falta crear vistas para CRUD de las categorias.
+1. Hace falta la vista que permita editar los articulos existentes.
+2. Hace falta la vista que permita editar las categorias existentes
 3. Crear mensajes de advertencia sobre el resultado de realizar cualquier
 actividad de CRUD de cada una de las vistas, cada vez que haya una llamada a
 'success_url' en cualquiera de las vistas.
+4. Hace falta la vista que permita eliminar articulos.
+5. Hace falta la vista que permita eliminar categorias.
+6. Agregar a las vistas de una restriccion por permisos de acceso.
+7. Crear una CBV para reemplazar la vista funcional blog_list. Muy seguramente
+la clase base a implementar por compatibilidad conceptual seria un TemplateView
+con modificacion del contexto.
 """
 
 
 def blog_list(request):
+    """Vista funcional para generar la pagina central de lblog, con el
+    contenido global de las entradas y poder alimentar la plantilla con
+    informacion complementaria relevante, adicionalmente se deja abierta la
+    opcion de poder agregar mas informacion al contexto en el futuro con mayor
+    facilidad."""
     categorias_list = Categoria.objects.all()
     articulos_list = Articulo.objects.get_published()
     categoria_count = Categoria.objects.all().count()
@@ -38,6 +48,7 @@ def blog_list(request):
         for tag in articulo.tags.all():
             if tag not in tags:
                 tags.append(tag)
+
     context = RequestContext(request, {
         'categorias_list': categorias_list,
         'articulos': articulos,
@@ -47,18 +58,6 @@ def blog_list(request):
     })
 
     return render_to_response('blog/articulo_list.html', context)
-
-
-class ListaArticulos(ListView):
-    """Vista usando concepto de 'Class Based Views' para llamar todos los
-    articulos, asi se habilita la opcion de permitir acceso a las
-    funcionalidades del portal, sin necesidad de dar acceso al lado
-    administrativo del mismo.
-    """
-    model = Articulo
-    queryset = Articulo.objects.get_published()
-    paginate_by = 10
-    context_object_name = 'lista_articulos'
 
 
 class DetalleArticulo(DetailView):
