@@ -1,119 +1,492 @@
 {% extends "base.html" %}
-{% load staticfiles %}
-{% block extracss %}{% endblock %}
+{% load static i18n %}
 
 {% block content %}
-
-    <header id="myCarousel" class="carousel slide">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>
-            <li data-target="#myCarousel" data-slide-to="4"></li>
-        </ol>
-
-        <!-- Wrapper for Slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <!-- Set the first background image using inline CSS below. -->
-                <div class="fill" style="background-image:url({% static 'img/fachada_1.jpeg' %});"></div>
-            </div>
-            <div class="item">
-                <!-- Set the second background image using inline CSS below. -->
-                <div class="fill" style="background-image:url({% static 'img/fachada_2.jpg' %});"></div>
-            </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill" style="background-image:url({% static 'img/fachada_3.jpg' %});"></div>
-            </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill" style="background-image:url({% static 'img/fachada_4.jpg' %});"></div>
-            </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill" style="background-image:url({% static 'img/fachada_5.jpg' %});"></div>
-            </div>
-        </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-
-    </header>
-
-    <!-- Page Content -->
+<!-- Services Section -->
+<section id="services" class="bg-light-gray">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="text-center page-header">Bienvenido al portal de la Comunidad de DjangoCali</h1>
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">El evento</h2>
+                <h3 itemprop="description" class="section-subheading text-muted">Lanzamiento CaliDev: Unamonos para aprender, aumentar y divulgar el talento.</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 col-md-offset-1">
+                <img class="img-responsive" src="{% static 'img/biblioteca-departamental-valle-jorge-garces-borrero.jpg' %}" alt="Biblioteca Departamental Jorge Garcés Borrero">
+            </div>
+            <div class="col-md-5">
+                <div itemprop="location" itemscope itemtype="http://schema.org/Place">
+                    <h4 itemprop="name">Biblioteca Departamental Jorge Garcés Borrero</h4>
+                    <meta itemprop="image" content="{% static 'img/biblioteca-departamental-valle-jorge-garces-borrero.jpg' %}">
+                    <p>Punto Vive Digital, Sal&oacute;n 1</p>
+                    <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                        <span itemprop="streetAddress">Calle 5 No. 24A-91</span><br>
+                        <span itemprop="addressLocality">Cali</span>, <span itemprop="addressRegion">Valle del Cauca</span><br>
+                        <span itemprop="postalCode">760042</span>
+                    </address>
+                </div>
+                <h4>Hora</h4>
+                <p>Fecha: <span  itemprop="startDate" content="2015-07-18T10:00">18 de Julio 2015</span></p>
+                <p>Desde: <time>10:00am</time></p>
+                <p itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                    <meta itemprop="price" content="0.00"/>
+                    <meta itemprop="priceCurrency" content="COP"/>
+                    <a target="_blank" itemprop="url" class="btn btn-primary" href="http://www.meetup.com/CaliDev/">¡Deseo asistir!</a>
+                </p>
             </div>
         </div>
     </div>
-    <section id="section-services" class="section pad-bot30 bg-white">
+</section>
+
+<!-- About Section -->
+<section id="about">
     <div class="container">
-
-        <div class="row mar-bot40">
-            <div class="col-lg-3" >
-                <div class="align-center">
-                    <i class="fa fa-code fa-5x mar-bot20"></i>
-                    <h4 class="text-bold">We Love to Code</h4>
-                    <p>Nos encanta desarrolla nuevas herramientas aplicando lo que sabemos, y aprender lo que no para ser mejores.
-
-                    </p>
-                </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Agenda</h2>
+                <h3 class="section-subheading text-muted">Conoce los contenidos que se van a compartir en el CaliDev.</h3>
             </div>
-
-            <div class="col-lg-3" >
-                <div class="align-center">
-                    <i class="fa fa-terminal fa-5x mar-bot20"></i>
-                    <h4 class="text-bold">We Love Python & Django</h4>
-                    <p>Python y Django son parte fundamental de nuestro cinturon de herramientas. Nos gusta la forma en que se escribe.
-                    Y nos gusta lo bien que funciona.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-lg-3" >
-                <div class="align-center">
-                    <i class="fa fa-code-fork fa-5x mar-bot20"></i>
-                    <h4 class="text-bold">We Love to Share</h4>
-                    <p>Nos gusta el FOSS y por ello tambien aportamos a la comunidad, y procuramos devolver un poco de lo que hemos recibido.
-                    Y por ello nos acercamos como amigos.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-lg-3" >
-                <div class="align-center">
-                    <i class="fa fa-map-marker fa-5x mar-bot20"></i>
-                    <h4 class="text-bold">We Love our City</h4>
-                    <p>Somos de Cali oís. Fuimos criados comiendo pandebono y tomando el mejor sancocho del mundo.
-                    Todo al son de la buena musica.
-                    </p>
-                </div>
-            </div>
-
         </div>
-
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="timeline">
+                    <li itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" itemprop="image" src="{% static 'img/about/introduction-calidev.jpg' %}" alt="Introduccion y Bienvenida">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h5 itemprop="startDate" content="2015-07-18T10:00">10:00 a.m.</h5>
+                                <h4 itemprop="name">Introducción y Bienvenida</h4>
+                                <h4 class="subheading">Lanzamiento de CaliDev</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p itemprop="description" class="text-muted">Explicaremos todo acerca de la comunidad: el prop&oacute;sito, los objetivos y el compromiso con el desarrollo de la ciudad.</p>
+                            </div>
+                            <div class="hidden" itemprop="location" itemscope="" itemtype="http://schema.org/Place">
+                                <meta itemprop="name" content="Biblioteca Departamental Jorge Garcés Borrero">
+                                <meta itemprop="address" content="Calle 5 No. 24A-91">
+                            </div>
+                            <div class="hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <meta itemprop="price" content="0.00"/>
+                                <meta itemprop="priceCurrency" content="COP"/>
+                                <meta itemprop="url" content="http://www.meetup.com/CaliDev/"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li itemprop="subEvent" itemscope itemtype="http://schema.org/Event" class="timeline-inverted">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" itemprop="image" src="{% static 'img/about/data-science-essentials.jpg' %}" alt="Data Science Essentials">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h5 itemprop="startDate" content="2015-07-18T11:00">11:00 a.m.</h5>
+                                <h4 itemprop="name">Dise&ntilde;o, como la vida misma</h4>
+                                <h4 class="subheading">UX/UI, Web Design</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p itemprop="description" class="text-muted">Una perspectiva práctica del diseño aplicada al desarrollo.</p>
+                                <p itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                                    Por <span itemprop="name">Julian Mora</span>
+                                </p>
+                            </div>
+                            <div class="hidden" itemprop="location" itemscope="" itemtype="http://schema.org/Place">
+                                <meta itemprop="name" content="Biblioteca Departamental Jorge Garcés Borrero">
+                                <meta itemprop="address" content="Calle 5 No. 24A-91">
+                            </div>
+                            <div class="hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <meta itemprop="price" content="0.00"/>
+                                <meta itemprop="priceCurrency" content="COP"/>
+                                <meta itemprop="url" content="http://www.meetup.com/CaliDev/"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" itemprop="image" src="{% static 'img/about/lunch-time.jpg' %}" alt="Introduccion y Bienvenida">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h5 itemprop="startDate" content="2015-07-18T12:00">12:00 p.m.</h5>
+                                <h4 itemprop="name">Lunch Time!</h4>
+                                <h4 class="subheading">Lunch Deployment</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p itemprop="description" class="text-muted">Let the hunger games begin!</p>
+                            </div>
+                            <div class="hidden" itemprop="location" itemscope="" itemtype="http://schema.org/Place">
+                                <meta itemprop="name" content="Biblioteca Departamental Jorge Garcés Borrero">
+                                <meta itemprop="address" content="Calle 5 No. 24A-91">
+                            </div>
+                            <div class="hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <meta itemprop="price" content="0.00"/>
+                                <meta itemprop="priceCurrency" content="COP"/>
+                                <meta itemprop="url" content="http://www.meetup.com/CaliDev/"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li itemprop="subEvent" itemscope itemtype="http://schema.org/Event" class="timeline-inverted">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" itemprop="image" src="{% static 'img/about/angular-ionic-cordova.jpg' %}" alt="El qu&eacute;, c&oacute;mo y para qu&eacute; de Ionic Framework">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h5 itemprop="startDate" content="2015-07-18T13:00">1:00 p.m.</h5>
+                                <h4 itemprop="name">El qu&eacute;, c&oacute;mo y para qu&eacute; de Ionic Framework</h4>
+                                <h4 class="subheading">AngularJS, Apache Cordova, SASS</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p itemprop="description" class="text-muted">Una breve introducci&oacute;n al desarrollo de aplicaciones m&oacute;viles h&iacute;bridas haciendo &eacute;nfasis en el uso de <a href="http://ionicframework.com/" target="_blank">Ionic</a> como herramienta principal en nuestros proyectos.</p>
+                                <p itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                                    Por <span itemprop="name">Richard Melo</span>
+                                </p>
+                            </div>
+                            <div class="hidden" itemprop="location" itemscope="" itemtype="http://schema.org/Place">
+                                <meta itemprop="name" content="Biblioteca Departamental Jorge Garcés Borrero">
+                                <meta itemprop="address" content="Calle 5 No. 24A-91">
+                            </div>
+                            <div class="hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <meta itemprop="price" content="0.00"/>
+                                <meta itemprop="priceCurrency" content="COP"/>
+                                <meta itemprop="url" content="http://www.meetup.com/CaliDev/"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" itemprop="image" src="{% static 'img/about/loop.png' %}" alt="Entendiendo el &laquo;Event Loop&raquo; de JavaScript">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h5 itemprop="startDate" content="2015-07-18T13:00">1:30 p.m.</h5>
+                                <h4 itemprop="name">Entendiendo el &laquo;Event Loop&raquo; de JavaScript</h4>
+                                <h4 class="subheading">JavaScript &frasl; V8 Engine &frasl; Concurrencia</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p itemprop="description" class="text-muted">Con ejemplos muy sencillos, entenderemos como funciona JavaScript y como interactua con los WebAPIs de los navegadores.</p>
+                                <p itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                                    Por <span itemprop="name">Juan Obando</span>
+                                </p>
+                            </div>
+                            <div class="hidden" itemprop="location" itemscope="" itemtype="http://schema.org/Place">
+                                <meta itemprop="name" content="Biblioteca Departamental Jorge Garcés Borrero">
+                                <meta itemprop="address" content="Calle 5 No. 24A-91">
+                            </div>
+                            <div class="hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <meta itemprop="price" content="0.00"/>
+                                <meta itemprop="priceCurrency" content="COP"/>
+                                <meta itemprop="url" content="http://www.meetup.com/CaliDev/"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li itemprop="subEvent" itemscope itemtype="http://schema.org/Event" class="timeline-inverted">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" itemprop="image" src="{% static 'img/about/simple-api-ruby.jpg' %}" alt="Una Simple API en Ruby">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h5 itemprop="startDate" content="2015-07-18T14:00">2:00 p.m.</h5>
+                                <h4 itemprop="name">Una Simple Web API en Ruby</h4>
+                                <h4 class="subheading">Ruby/Rails/API's</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p itemprop="description" class="text-muted">
+                                Esta es una charla sobre c&oacute;mo construir una Web API b&aacute;sica, y que herramientas existen en el ecosistema de Ruby para lograrlo.
+                                <br/><a href="https://www.ruby-lang.org" target="_blank">I Love Ruby!</a> -
+                                <a href="http://rubyonrails.org/" target="_blank">Ruby On Rails</a>  -
+                                <a href="http://www.sinatrarb.com/" target="_blank">Sinatra</a>
+                              </p>
+                              <p itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                                Por <span itemprop="name">Moises Vargas</span>
+                                </p>
+                            </div>
+                            <div class="hidden" itemprop="location" itemscope="" itemtype="http://schema.org/Place">
+                                <meta itemprop="name" content="Biblioteca Departamental Jorge Garcés Borrero">
+                                <meta itemprop="address" content="Calle 5 No. 24A-91">
+                            </div>
+                            <div class="hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <meta itemprop="price" content="0.00"/>
+                                <meta itemprop="priceCurrency" content="COP"/>
+                                <meta itemprop="url" content="http://www.meetup.com/CaliDev/"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" itemprop="image" src="{% static 'img/about/calidev-geospatial-indexes-api-mongodb-nodejs.png' %}" alt="Indices Geoespaciales con MongoDB">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h5 itemprop="startDate" content="2015-07-18T15:00">3:00 p.m.</h5>
+                                <h4 itemprop="name">Indices Geoespaciales con MongoDB</h4>
+                                <h4 class="subheading">MongoDB/NodeJS/API's</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p itemprop="description" class="text-muted">
+                                Expondremos cómo hacer una API Básica con búsqueda geoespacial con <a href="https://www.mongodb.org" target="_blank">MongoDB</a> y <a href="https://www.nodejs.org" target="_blank">NodeJS</a> utilizando como ejemplo el user story de "Buscar eventos cercanos a menos de 500 metros".
+                              </p>
+                              <p itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                                Por <span itemprop="name">Julian Cantillo</span>
+                                </p>
+                            </div>
+                            <div class="hidden" itemprop="location" itemscope="" itemtype="http://schema.org/Place">
+                                <meta itemprop="name" content="Biblioteca Departamental Jorge Garcés Borrero">
+                                <meta itemprop="address" content="Calle 5 No. 24A-91">
+                            </div>
+                            <div class="hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <meta itemprop="price" content="0.00"/>
+                                <meta itemprop="priceCurrency" content="COP"/>
+                                <meta itemprop="url" content="http://www.meetup.com/CaliDev/"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li itemprop="subEvent" itemscope itemtype="http://schema.org/Event" class="timeline-inverted">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" itemprop="image" src="{% static 'img/about/cali-vs-world.jpg' %}" alt="Cali vs World">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h5 itemprop="startDate" content="2015-07-18T16:00">4:00 p.m.</h5>
+                                <h4 itemprop="name">Cali vs World</h4>
+                                <h4 class="subheading">Exporting Services</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p itemprop="description" class="text-muted">
+                                Exporting Digital Services Internationally: Opportunities, Challenges, Risks and Best Practices.
+                              </p>
+                              <p itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                                Por <span itemprop="name">John Coffey</span>
+                                </p>
+                            </div>
+                            <div class="hidden" itemprop="location" itemscope="" itemtype="http://schema.org/Place">
+                                <meta itemprop="name" content="Biblioteca Departamental Jorge Garcés Borrero">
+                                <meta itemprop="address" content="Calle 5 No. 24A-91">
+                            </div>
+                            <div class="hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <meta itemprop="price" content="0.00"/>
+                                <meta itemprop="priceCurrency" content="COP"/>
+                                <meta itemprop="url" content="http://www.meetup.com/CaliDev/"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" itemprop="image" src="{% static 'img/about/deployment.jpg' %}" alt="Despliegue de aplicaciones para alta disponibilidad">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h5 itemprop="startDate" content="2015-07-18T17:00">5:00 p.m.</h5>
+                                <h4 itemprop="name">Despliegue de aplicaciones para alta disponibilidad</h4>
+                                <h4 class="subheading"></h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p itemprop="description" class="text-muted">Consideraciones para llevar una aplicación al siguiente nivel. Consideraciones de diseño, configuración de aplicaciones en el servidor, herramientas para el despliegue y monitoreo de nuestras aplicaciones.</p>
+                                <p itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                                    Por <span itemprop="name">Andres Gonzalez</span>
+                                </p>
+                            </div>
+                            <div class="hidden" itemprop="location" itemscope="" itemtype="http://schema.org/Place">
+                                <meta itemprop="name" content="Biblioteca Departamental Jorge Garcés Borrero">
+                                <meta itemprop="address" content="Calle 5 No. 24A-91">
+                            </div>
+                            <div class="hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <meta itemprop="price" content="0.00"/>
+                                <meta itemprop="priceCurrency" content="COP"/>
+                                <meta itemprop="url" content="http://www.meetup.com/CaliDev/"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li itemprop="subEvent" itemscope itemtype="http://schema.org/Event" class="timeline-inverted">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" itemprop="image" src="{% static 'img/about/data-science-essentials.jpg' %}" alt="Data Science Essentials">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h5 itemprop="startDate" content="2015-07-18T17:00">6:00 p.m.</h5>
+                                <h4 itemprop="name">Data Science Essentials</h4>
+                                <h4 class="subheading">Machine Learning, PySpark, MLLib y Apache Spark.</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p itemprop="description" class="text-muted">En esta charla se cubrirán los elementos esenciales en Data Science. Desde la base academica, pasando por el estado del arte en herramientas para Data Science hasta un ejemplo de Machine Learning con <a href="https://spark.apache.org/mllib/">MLLib</a> (<a href="https://spark.apache.org/docs/0.9.0/python-programming-guide.html">PySpark</a>) de <a href="https://spark.apache.org/">Apache Spark</a></p>
+                                <p itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                                    Por <span itemprop="name">Daniel Valencia</span>
+                                </p>
+                            </div>
+                            <div class="hidden" itemprop="location" itemscope="" itemtype="http://schema.org/Place">
+                                <meta itemprop="name" content="Biblioteca Departamental Jorge Garcés Borrero">
+                                <meta itemprop="address" content="Calle 5 No. 24A-91">
+                            </div>
+                            <div class="hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <meta itemprop="price" content="0.00"/>
+                                <meta itemprop="priceCurrency" content="COP"/>
+                                <meta itemprop="url" content="http://www.meetup.com/CaliDev/"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image">
+                            <h4>Be Part
+                                <br>Of Our
+                                <br>Story!</h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    </section>
+</section>
+
+<!-- Team Section -->
+<section id="team" class="bg-light-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Ponentes</h2>
+                <h3 class="section-subheading text-muted">Estos son algunos de los ponentes del CaliDev 2015</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="team-member" itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                    <img src="{% static 'img/team/dic/daniel-valencia.png' %}" itemprop="image" class="img-responsive img-circle" alt="Daniel Valencia">
+                    <h4 itemprop="name">Daniel Valencia</h4>
+                    <p class="text-muted" itemprop="description">Rails, Data Science, R, MongoDB, Python</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" itemprop="sameAs" href="https://twitter.com/dafevara"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://plus.google.com/112218965295523906363/"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://www.linkedin.com/in/dafevara"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member" itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                    <img src="{% static 'img/team/moises-vargas.png' %}" itemprop="image" class="img-responsive img-circle" alt="Moises Vargas">
+                    <h4 itemprop="name">Moises Vargas</h4>
+                    <p class="text-muted" itemprop="description">Ruby, Rails, Python, Spark, MachineLearning</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" itemprop="sameAs" href="https://twitter.com/moisesvw"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://plus.google.com/+MoisesVargas/"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://co.linkedin.com/in/moisesvargas7/en"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member" itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                    <img src="{% static 'img/team/dic/richard-melo.png' %}" itemprop="image" class="img-responsive img-circle" alt="Richard Melo">
+                    <h4 itemprop="name">Richard Melo</h4>
+                    <p class="text-muted" itemprop="description">PHP, Symfony, AngularJS Developer</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" itemprop="sameAs" href="https://twitter.com/allucardster"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://plus.google.com/107117326708131903845"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://co.linkedin.com/in/richardmelo/en"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member" itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                    <img src="{% static 'img/team/julian-cantillo.jpg' %}" itemprop="image" class="img-responsive img-circle" alt="Julian Cantillo">
+                    <h4 itemprop="name">Julian Cantillo</h4>
+                    <p class="text-muted" itemprop="description">PHP, Laravel, MEAN Stack lover</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" itemprop="sameAs" href="https://twitter.com/juliancantillo"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://plus.google.com/+JulianCantilloB"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://co.linkedin.com/in/juliancantillo/en"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member" itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                    <img src="{% static 'img/team/john-coffey.jpg' %}" itemprop="image" class="img-responsive img-circle" alt="John Coffey">
+                    <h4 itemprop="name">John Coffey</h4>
+                    <p class="text-muted" itemprop="description">CEO Netmidas - Digital Consultant and Agency Owner since dial up modems</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" itemprop="sameAs" href="https://twitter.com/johnthunder"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://plus.google.com/+JohnOliverCoffey"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://co.linkedin.com/in/searchenginemarketer"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member" itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                    <img src="{% static 'img/team/andres-gonzalez.png' %}" itemprop="image" class="img-responsive img-circle" alt="Andres Gonzalez">
+                    <h4 itemprop="name">Andres Gonzalez</h4>
+                    <p class="text-muted" itemprop="description">Director of Research and Development at inQbation Labs</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" itemprop="sameAs" href="https://twitter.com/andresgz00"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://github.com/andresgz"><i class="fa fa-github"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://www.linkedin.com/in/andresgz"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member" itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                    <img src="{% static 'img/team/julian-mora.jpg' %}" itemprop="image" class="img-responsive img-circle" alt="Julian Mora">
+                    <h4 itemprop="name">Julian Mora</h4>
+                    <p class="text-muted" itemprop="description">If you can’t be brilliant, at least be memorable. UX, AI, UI Designer at @monoku and freelance consultant</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" itemprop="sameAs" href="https://twitter.com/julivajuli"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://co.linkedin.com/pub/julian-mora/b/947/338"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member" itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                    <img src="{% static 'img/team/juan-obando.jpg' %}" itemprop="image" class="img-responsive img-circle" alt="Juan Obado">
+                    <h4 itemprop="name">Juan Obado</h4>
+                    <p class="text-muted" itemprop="description">Front End Engineer at @inQbation. #Git #JavaScript #Ruby lover. Tech enthusiastic.</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" itemprop="sameAs" href="https://twitter.com/juanchopx2"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://github.com/juanchopx2"><i class="fa fa-github"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://www.linkedin.com/in/juanchopx2"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member" itemprop="performer" itemscope itemtype="http://schema.org/Person">
+                    <img src="{% static 'img/team/goran-tornquist.png' %}" itemprop="image" class="img-responsive img-circle" alt="Göran Törnquist">
+                    <h4 itemprop="name">Göran Törnquist</h4>
+                    <p class="text-muted" itemprop="description">CEO Usertime – Web and mobile developer for 20+ years</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" itemprop="sameAs" href="https://twitter.com/gorantq"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://plus.google.com/108161367534649103362"><i class="fa fa-github"></i></a>
+                        </li>
+                        <li><a target="_blank" itemprop="sameAs" href="https://se.linkedin.com/pub/göran-törnquist/0/368/8aa"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <p class="large text-muted">Deseas compartir algun tema con la comunidad <a target="_blank" href="https://docs.google.com/forms/d/1v-AKhOG-Vk21yrOZPS0dZK0WKgwtNAekM_ornMqSkUc/viewform">diligencia este formulario</a></p>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock content %}
-
-{% block extrajs %}
-
-    <!-- Script to Activate the Carousel -->
-    <script>
-        $('.carousel').carousel({
-        interval: 5000 //changes the speed
-        })
-    </script>
-
-{% endblock %}}
