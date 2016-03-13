@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ObjectDoesNotExist
 from taggit.managers import TaggableManager
 from django.conf import settings
 from autoslug import AutoSlugField
@@ -29,7 +30,6 @@ class ForoManager(models.Manager):
         return Pregunta.objects.filter(tiene_respuesta=True)
 
 
-
 class Votos(models.Model):
     '''Modelo para llevar el registro de votos aplicados a los registros de los
     otros dos modelos. La idea principal es llevar un registro de
@@ -40,7 +40,6 @@ class Votos(models.Model):
     creado_en = models.DateTimeField(auto_now_add=True, editable=False)
     modificado_en = models.DateTimeField(auto_now=True)
     voto = models.SmallIntegerField()
-    votante = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     class Meta:
         verbose_name = 'Voto'
@@ -75,10 +74,16 @@ class Pregunta(models.Model):
         return self.respuesta_set.all().count()
 
     def get_accepted_answer(self):
-        return self.respuesta_set.filter(aceptada=True)
+        try:
+            return self.respuesta_set.get(aceptada=True)
+        except ObjectDoesNotExist:
+            return "Quien hizó la pregunta, aun no ha marcado ninguna respuesta como aceptada."
 
     def get_answers(self):
         return self.respuesta_set.all()
+
+    def votar(self):
+        self.votos.create(voto=1)
 
 
 class Respuesta(models.Model):
@@ -112,23 +117,20 @@ class Respuesta(models.Model):
         self.votos.create(voto=-1)
 
     def aceptar_respuesta(self):
+        self.pregunta.tiene_respuesta = False
+        self.pregunta.save()
+        for r in self.pregunta.get_answers():
+            r.aceptada = False
+            r.save()
+
         self.aceptada = True
         self.save()
-        self.question.tiene_respuesta = True
-        self.question.save()
+        self.pregunta.tiene_respuesta = True
+        self.pregunta.save()
 
     def calcular_votos(self):
-        total_votos = self.votos_set.all().count()
-        up_votos = self.votos_set.filter(voto=1).count()
-        down_votos = self.votos_set.filter(voto=-1).count()
-        votos = up_votos - down_votos
-        return (total_votos, votos)
-
-    def get_votantes(self):
-        votos = self.votos_set.all()
-        lista_votantes = []
-        for voto in votos:
-            if voto.votante not in lista_votantes:
-                lista_votantes.append(voto.votante)
-
-        return lista_votantes
+        total_recibidos = self.votos.count()
+        up_votos = self.votos.filter(voto=1).count()
+        down_votos = self.votos.filter(voto=-1).count()
+        votacion = up_votos - down_votos
+        return (total_recibidos, votacion)
