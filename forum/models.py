@@ -22,20 +22,12 @@ class ForoManager(models.Manager):
     # Introduje un par de lineas como ideas sueltas para no perder la idea.
     # pero esto requiere añadir un campo al modelo. ¿Hay alguna otra forma?
 
-    def get_unanswered():
+    def get_unanswered(self):
         return Pregunta.objects.filter(tiene_respuesta=False)
 
-    def get_answered():
+    def get_answered(self):
         return Pregunta.objects.filter(tiene_respuesta=True)
 
-    def get_answers_count(self):
-        return Respuesta.objects.filter(pregunta=self).count()
-
-    def get_accepted_answer(self):
-        return Respuesta.objects.get(pregunta=self, aceptada=True)
-
-    def get_answers(self):
-        return Respuesta.objects.filter(pregunta=self)
 
 
 class Votos(models.Model):
@@ -78,6 +70,15 @@ class Pregunta(models.Model):
 
     def __str__(self):
         return self.titulo
+
+    def get_answers_count(self):
+        return self.respuesta_set.all().count()
+
+    def get_accepted_answer(self):
+        return self.respuesta_set.filter(aceptada=True)
+
+    def get_answers(self):
+        return self.respuesta_set.all()
 
 
 class Respuesta(models.Model):
