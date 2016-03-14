@@ -134,3 +134,6 @@ class Respuesta(models.Model):
         down_votos = self.votos.filter(voto=-1).count()
         votacion = up_votos - down_votos
         return (total_recibidos, votacion)
+
+    def __str__(self):
+        return self.descripcion
