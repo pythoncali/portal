@@ -19,6 +19,13 @@ class CrearPregunta(LoginRequiredMixin, CreateView):
 
 class CrearRespuesta(LoginRequiredMixin, CreateView):
     model = Respuesta
+    success_url = '/forum/'
+    fields = ['descripcion', 'tags']
+
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        form.instance.pregunta = self.request.pregunta
+        return super(CrearRespuesta, self).form_valid(form)
 
 
 class ListaPreguntas(ListView):

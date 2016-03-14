@@ -26,7 +26,5 @@ class TestModels(TestCase):
 
     def test_manager(self):
         pregunta = mommy.make(Pregunta)
-        self.assertFalse(Pregunta.objects.get_unanswered_questions())
-        self.assertFalse(Pregunta.objects.get_answered_questions())
-        self.assertFalse(Pregunta.objects.get_questions_answers())
-        self.assertFalse(Pregunta.objects.get_answers(), pregunta.titulo)
+        self.assertTrue(Pregunta.objects.get_unanswered())
+        self.assertFalse(Pregunta.objects.get_answered())
