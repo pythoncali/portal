@@ -39,6 +39,7 @@ class Votos(models.Model):
     '''
     creado_en = models.DateTimeField(auto_now_add=True, editable=False)
     modificado_en = models.DateTimeField(auto_now=True)
+    votante = models.ForeignKey(settings.AUTH_USER_MODEL)
     voto = models.SmallIntegerField()
 
     class Meta:
@@ -82,8 +83,8 @@ class Pregunta(models.Model):
     def get_answers(self):
         return self.respuesta_set.all()
 
-    def votar(self):
-        self.votos.create(voto=1)
+    def votar(self, votante):
+        self.votos.create(voto=1, votante=votante)
 
 
 class Respuesta(models.Model):
@@ -98,9 +99,7 @@ class Respuesta(models.Model):
     autor = models.ForeignKey(settings.AUTH_USER_MODEL)
     pregunta = models.ForeignKey(Pregunta)
     descripcion = models.TextField(max_length=2000)
-    votos = models.IntegerField(default=0)
     aceptada = models.BooleanField(default=False)
-    slug = AutoSlugField(populate_from='descripcion', unique=True, editable=False)
     votos = models.ManyToManyField(Votos, blank=True, limit_choices_to={'pk': 0})
     tags = TaggableManager(blank=True)
     objects = ForoManager()
@@ -110,11 +109,11 @@ class Respuesta(models.Model):
         verbose_name_plural = 'Respuestas'
         ordering = ('-aceptada', 'creado_en',)
 
-    def voto_positivo(self):
-        self.votos.create(voto=1)
+    def voto_positivo(self, votante):
+        self.votos.create(voto=1, votante=votante)
 
-    def voto_negativo(self):
-        self.votos.create(voto=-1)
+    def voto_negativo(self, votante):
+        self.votos.create(voto=-1, votante=votante)
 
     def aceptar_respuesta(self):
         self.pregunta.tiene_respuesta = False
