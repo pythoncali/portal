@@ -20,11 +20,11 @@ class CrearPregunta(LoginRequiredMixin, CreateView):
 class CrearRespuesta(LoginRequiredMixin, CreateView):
     model = Respuesta
     success_url = '/forum/'
-    fields = ['pregunta', 'descripcion', 'tags']
+    fields = ['descripcion', 'tags']
 
     def form_valid(self, form):
         form.instance.autor = self.request.user
-        # form.instance.pregunta = self.request.pregunta_id
+        form.instance.pregunta_id = self.kwargs['pregunta_id']
         return super(CrearRespuesta, self).form_valid(form)
 
 

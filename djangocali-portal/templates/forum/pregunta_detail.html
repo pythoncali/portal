@@ -36,6 +36,11 @@
                 <p>{{ pregunta.descripcion }}</p>
                 <hr>
                 <a class="btn btn-primary" href="{% url 'crear_respuesta' pregunta.id %}">Ofrecer una Respuesta</a>
+                <div class="row" style="padding-top: 20px;">
+                    {% for respuesta in pregunta.get_answers %}
+                        {{ respuesta.descripcion }}
+                    {% endfor %}
+                </div>
 
                 <!-- Comments Form
                 <div class="well">
