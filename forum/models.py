@@ -104,19 +104,12 @@ class Pregunta(models.Model):
     def get_answers(self):
         return self.respuesta_set.all()
 
-    def voto_positivo(self, votante):
+    def voto(self, voto, votante):
         if votante == self.autor:
             raise ValidationError("Lo sentimos, no puedes votar por tu propia pregunta")
 
         else:
-            self.votos.create(voto=1, votante=votante)
-
-    def voto_negativo(self, votante):
-        if votante == self.autor:
-            raise ValidationError("Lo sentimos, no puedes votar por tu propia pregunta")
-
-        else:
-            self.votos.create(voto=-1, votante=votante)
+            self.votos.create(voto=voto, votante=votante)
 
     def calcular_votos(self):
         up_votos = self.votos.filter(voto=1).count()
@@ -147,19 +140,12 @@ class Respuesta(models.Model):
         verbose_name_plural = 'Respuestas'
         ordering = ('-aceptada', '-creado_en',)
 
-    def voto_positivo(self, votante):
+    def voto(self, voto, votante):
         if votante == self.autor:
-            raise ValidationError("Lo sentimos, no puedes votar por tu propia respuesta")
+            raise ValidationError("Lo sentimos, no puedes votar por tu propia pregunta")
 
         else:
-            self.votos.create(voto=1, votante=votante)
-
-    def voto_negativo(self, votante):
-        if votante == self.autor:
-            raise ValidationError("Lo sentimos, no puedes votar por tu propia respuesta")
-
-        else:
-            self.votos.create(voto=-1, votante=votante)
+            self.votos.create(voto=voto, votante=votante)
 
     def aceptar_respuesta(self):
         self.pregunta.tiene_respuesta = False
