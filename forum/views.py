@@ -1,4 +1,5 @@
 from django.views.generic import ListView, DetailView, CreateView
+from django.core.urlresolvers import reverse_lazy, reverse
 from braces.views import LoginRequiredMixin
 from .models import Pregunta, Respuesta
 
@@ -9,7 +10,7 @@ class CrearPregunta(LoginRequiredMixin, CreateView):
     sin necesidad de dar acceso al lado administrativo del portal.
     '''
     model = Pregunta
-    success_url = '/forum/'
+    success_url = reverse_lazy('lista_preguntas')
     fields = ['titulo', 'descripcion', 'tags']
 
     def form_valid(self, form):
@@ -19,13 +20,16 @@ class CrearPregunta(LoginRequiredMixin, CreateView):
 
 class CrearRespuesta(LoginRequiredMixin, CreateView):
     model = Respuesta
-    success_url = '/forum/'
     fields = ['descripcion', 'tags']
 
     def form_valid(self, form):
         form.instance.autor = self.request.user
         form.instance.pregunta_id = self.kwargs['pregunta_id']
         return super(CrearRespuesta, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('crear_respuesta',
+                       kwargs={'pk': self.kwargs['pregunta_id']})
 
 
 class ListaPreguntas(ListView):
