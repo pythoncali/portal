@@ -2,8 +2,9 @@ from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from taggit.managers import TaggableManager
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from autoslug import AutoSlugField
-# import user
+
 
 '''
 La intencion basica del app es brindar un espacio del tipo Stack-Overflow donde
@@ -28,6 +29,21 @@ class ForoManager(models.Manager):
 
     def get_answered(self):
         return Pregunta.objects.filter(tiene_respuesta=True)
+
+
+class Comentario(models.Model):
+    '''Modelo para alojar los diferentes comentarios hechos en el foro, los
+    cuales se supone seran para complementar diferentes aspectos de la pregunta
+    o respuesta sobre la cual se hacen.'''
+    creado_en = models.DateTimeField(auto_now_add=True, editable=False)
+    modificado_en = models.DateTimeField(auto_now=True)
+    comentador = models.ForeignKey(settings.AUTH_USER_MODEL)
+    comentario = models.TextField(max_length=3000, blank=True)
+
+    class Meta:
+        verbose_name = 'Comentario'
+        verbose_name_plural = 'Comentarios'
+        ordering = ('-creado_en',)
 
 
 class Votos(models.Model):
@@ -60,16 +76,21 @@ class Pregunta(models.Model):
     slug = AutoSlugField(populate_from='titulo', unique=True, editable=False)
     tiene_respuesta = models.BooleanField(default=False)
     votos = models.ManyToManyField(Votos, blank=True, limit_choices_to={'pk': 0})
+    vistas = models.IntegerField(default=0)
     tags = TaggableManager(blank=True)
     objects = ForoManager()
 
     class Meta:
         verbose_name = 'Pregunta'
         verbose_name_plural = 'Preguntas'
-        ordering = ('-creado_en',)
+        ordering = ('tiene_respuesta', '-vistas', '-creado_en',)
 
     def __str__(self):
         return self.titulo
+
+    def incrementar_vistas(self):
+        self.vistas += 1
+        self.save()
 
     def get_answers_count(self):
         return self.respuesta_set.all().count()
@@ -83,8 +104,25 @@ class Pregunta(models.Model):
     def get_answers(self):
         return self.respuesta_set.all()
 
-    def votar(self, votante):
-        self.votos.create(voto=1, votante=votante)
+    def voto_positivo(self, votante):
+        if votante == self.autor:
+            raise ValidationError("Lo sentimos, no puedes votar por tu propia pregunta")
+
+        else:
+            self.votos.create(voto=1, votante=votante)
+
+    def voto_negativo(self, votante):
+        if votante == self.autor:
+            raise ValidationError("Lo sentimos, no puedes votar por tu propia pregunta")
+
+        else:
+            self.votos.create(voto=-1, votante=votante)
+
+    def calcular_votos(self):
+        up_votos = self.votos.filter(voto=1).count()
+        down_votos = self.votos.filter(voto=-1).count()
+        votacion = up_votos - down_votos
+        return votacion
 
 
 class Respuesta(models.Model):
@@ -107,13 +145,21 @@ class Respuesta(models.Model):
     class Meta:
         verbose_name = 'Respuesta'
         verbose_name_plural = 'Respuestas'
-        ordering = ('-aceptada', 'creado_en',)
+        ordering = ('-aceptada', '-creado_en',)
 
     def voto_positivo(self, votante):
-        self.votos.create(voto=1, votante=votante)
+        if votante == self.autor:
+            raise ValidationError("Lo sentimos, no puedes votar por tu propia respuesta")
+
+        else:
+            self.votos.create(voto=1, votante=votante)
 
     def voto_negativo(self, votante):
-        self.votos.create(voto=-1, votante=votante)
+        if votante == self.autor:
+            raise ValidationError("Lo sentimos, no puedes votar por tu propia respuesta")
+
+        else:
+            self.votos.create(voto=-1, votante=votante)
 
     def aceptar_respuesta(self):
         self.pregunta.tiene_respuesta = False
@@ -128,11 +174,10 @@ class Respuesta(models.Model):
         self.pregunta.save()
 
     def calcular_votos(self):
-        total_recibidos = self.votos.count()
         up_votos = self.votos.filter(voto=1).count()
         down_votos = self.votos.filter(voto=-1).count()
         votacion = up_votos - down_votos
-        return (total_recibidos, votacion)
+        return votacion
 
     def __str__(self):
         return self.descripcion
