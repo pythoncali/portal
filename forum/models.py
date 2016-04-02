@@ -75,7 +75,10 @@ class Pregunta(models.Model):
     descripcion = models.TextField(max_length=3000)
     slug = AutoSlugField(populate_from='titulo', unique=True, editable=False)
     tiene_respuesta = models.BooleanField(default=False)
-    votos = models.ManyToManyField(Votos, blank=True, limit_choices_to={'pk': 0})
+    votos = models.ManyToManyField(Votos, blank=True,
+                                   limit_choices_to={'pk': 0})
+    comentarios = models.ManyToManyField(Comentario, blank=True,
+                                         limit_choices_to={'pk': 0})
     vistas = models.IntegerField(default=0)
     tags = TaggableManager(blank=True)
     objects = ForoManager()
@@ -92,6 +95,9 @@ class Pregunta(models.Model):
         self.vistas += 1
         self.save()
 
+    def get_answers(self):
+        return self.respuesta_set.all()
+
     def get_answers_count(self):
         return self.respuesta_set.all().count()
 
@@ -101,12 +107,10 @@ class Pregunta(models.Model):
         except ObjectDoesNotExist:
             return "Quien hizó la pregunta, aun no ha marcado ninguna respuesta como aceptada."
 
-    def get_answers(self):
-        return self.respuesta_set.all()
-
     def voto(self, voto, votante):
         if votante == self.autor:
-            raise ValidationError("Lo sentimos, no puedes votar por tu propia pregunta")
+            raise ValidationError(
+                "Lo sentimos, no puedes votar por tu propia pregunta")
 
         else:
             self.votos.create(voto=voto, votante=votante)
@@ -131,7 +135,10 @@ class Respuesta(models.Model):
     pregunta = models.ForeignKey(Pregunta)
     descripcion = models.TextField(max_length=2000)
     aceptada = models.BooleanField(default=False)
-    votos = models.ManyToManyField(Votos, blank=True, limit_choices_to={'pk': 0})
+    votos = models.ManyToManyField(Votos, blank=True,
+                                   limit_choices_to={'pk': 0})
+    comentarios = models.ManyToManyField(Comentario, blank=True,
+                                         limit_choices_to={'pk': 0})
     tags = TaggableManager(blank=True)
     objects = ForoManager()
 
@@ -142,7 +149,8 @@ class Respuesta(models.Model):
 
     def voto(self, voto, votante):
         if votante == self.autor:
-            raise ValidationError("Lo sentimos, no puedes votar por tu propia pregunta")
+            raise ValidationError(
+                "Lo sentimos, no puedes votar por tu propia pregunta")
 
         else:
             self.votos.create(voto=voto, votante=votante)
