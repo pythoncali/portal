@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView
 from django.core.urlresolvers import reverse_lazy, reverse
 from braces.views import LoginRequiredMixin
-from .models import Pregunta, Respuesta
+from .models import Pregunta, Respuesta, Comentario
 
 
 class CrearPregunta(LoginRequiredMixin, CreateView):
@@ -28,8 +28,8 @@ class CrearRespuesta(LoginRequiredMixin, CreateView):
         return super(CrearRespuesta, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('crear_respuesta',
-                       kwargs={'pk': self.kwargs['pregunta_id']})
+        slug = Pregunta.objects.get(id=self.kwargs['pregunta_id']).slug
+        return reverse('detalle_pregunta', kwargs={'slug': slug})
 
 
 class ListaPreguntas(ListView):
