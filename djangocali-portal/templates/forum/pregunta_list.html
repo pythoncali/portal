@@ -33,6 +33,9 @@
                     </div>
                     <hr>
                     <h4>{{ pregunta.descripcion|truncatechars:100 }}</h4>
+                    <p>
+                        Vistas: {{ pregunta.vistas }}
+                    </p>
                     <hr>
                 {% empty %}
                     <h4 class="no-data">Aun no tenemos nuestra primer pregunta. <a href="{% url 'crear_pregunta' %}">¿Quieres preguntarle algo a la comunidad?</a></h4>

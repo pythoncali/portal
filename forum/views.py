@@ -77,6 +77,12 @@ class DetallePregunta(DetailView):
     model = Pregunta
     context_object_name = 'pregunta'
 
+    def get_object(self):
+        # Call the superclass
+        pregunta = super(DetallePregunta, self).get_object()
+        pregunta.incrementar_vistas()
+        return pregunta
+
 
 class DetalleRespuesta(DetailView):
     model = Respuesta
