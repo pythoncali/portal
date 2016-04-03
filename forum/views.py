@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView
 from django.core.urlresolvers import reverse_lazy, reverse
 from braces.views import LoginRequiredMixin
-from .models import Pregunta, Respuesta, Comentario
+from .models import Pregunta, Respuesta, ComentarioPregunta, ComentarioRespuesta
 
 
 class CrearPregunta(LoginRequiredMixin, CreateView):
@@ -29,6 +29,36 @@ class CrearRespuesta(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         slug = Pregunta.objects.get(id=self.kwargs['pregunta_id']).slug
+        return reverse('detalle_pregunta', kwargs={'slug': slug})
+
+
+class ComentarPregunta(LoginRequiredMixin, CreateView):
+    template_name = 'forum/comentario_form.html'
+    model = ComentarioPregunta
+    fields = ['comentario', ]
+
+    def form_valid(self, form):
+        form.instance.comentador = self.request.user
+        form.instance.pregunta_id = self.kwargs['pregunta_id']
+        return super(ComentarPregunta, self).form_valid(form)
+
+    def get_success_url(self):
+        slug = Pregunta.objects.get(id=self.kwargs['pregunta_id']).slug
+        return reverse('detalle_pregunta', kwargs={'slug': slug})
+
+
+class ComentarRespuesta(LoginRequiredMixin, CreateView):
+    template_name = 'forum/comentario_form.html'
+    model = ComentarioRespuesta
+    fields = ['comentario', ]
+
+    def form_valid(self, form):
+        form.instance.comentador = self.request.user
+        form.instance.respuesta_id = self.kwargs['respuesta_id']
+        return super(ComentarPregunta, self).form_valid(form)
+
+    def get_success_url(self):
+        slug = Respuesta.objects.get(id=self.kwargs['respuesta_id']).pregunta.slug
         return reverse('detalle_pregunta', kwargs={'slug': slug})
 
 
