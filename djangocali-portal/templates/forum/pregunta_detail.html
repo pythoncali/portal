@@ -34,13 +34,28 @@
                 <hr>
                 <!-- Post Content -->
                 <p>{{ pregunta.descripcion }}</p>
+                <a class="pull-right btn btn-primary" href="{% url 'crear_respuesta' pregunta.id %}">Ofrecer una Respuesta</a>
                 <hr>
-                <a class="btn btn-primary" href="{% url 'crear_respuesta' pregunta.id %}">Ofrecer una Respuesta</a>
-                <div class="row" style="padding-top: 20px;">
-                    {% for respuesta in pregunta.get_answers %}
-                        {{ respuesta.descripcion }}
-                    {% endfor %}
-                </div>
+                <h4>Respuestas</h4>
+                {% for respuesta in pregunta.respuesta_set.all %}
+                    <div class="row">
+                        <div class ="col-md-9">
+                        <div id="respuesta" class="alert alert-primary" role="alert">{{ respuesta.descripcion }}</div>
+                        <a class="btn btn-primary" href="#" class="pull-right">Comentar Respuesta</a>
+                        {% if respuesta.comentariorespuesta_set.all %}
+                            <h4>Comentarios</h4>
+                            {% for comentario in respuesta.comentariorespuesta_set.all %}
+                                <p><b>{{ comentario.comentario }}</b><small>, <a href="#">comentador</a> <div class="pull-right">fecha comentario</div></small></p>
+                                <hr>
+                            {% endfor %}
+                        {% endif %}
+                        </div>
+                        <div class ="col-md-2">
+                            <p class="pull-right">- <b><a href="#">Respondedor</a></b></p>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
 
                 <!-- Comments Form
                 <div class="well">
