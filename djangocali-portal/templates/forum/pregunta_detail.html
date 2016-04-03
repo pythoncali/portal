@@ -22,7 +22,7 @@
                 <!-- Blog Post -->
                 <div class="postmetadata">
                     <ul>
-                        <li><i class="lead fa fa-user"></i> <a href="#">{{ pregunta.autor.get_full_name }}</a></li>
+                        <li><i class="lead fa fa-user"></i> <a href="{% url 'users:detail' pregunta.autor.username %}">{{ pregunta.autor.get_full_name }}</a></li>
                         <li><i class="fa fa-calendar"></i>Fecha de publicación: {{ pregunta.creado_en }}</li>
                         <li><i class="fa fa-tag"></i>
                             {% for tag in pregunta.tags.all %}
@@ -38,6 +38,13 @@
                 <div class="well">
                     <a class="btn btn-primary" href="{% url 'comentar_pregunta' pregunta.id %}">Comentar esta pregunta</a>
                     <a class="pull-right btn btn-primary" href="{% url 'crear_respuesta' pregunta.id %}">Ofrecer una Respuesta</a>
+                    <div class="row">
+                        {% if pregunta.comentariopregunta_set.all %}
+                            {% for comentario in pregunta.comentariopregunta_set.all %}
+                                <p>{{ comentario }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
                 <h4>Respuestas</h4>
                 {% for respuesta in pregunta.respuesta_set.all %}

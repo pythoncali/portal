@@ -22,7 +22,7 @@
                     <h2><a href="{% url 'detalle_pregunta' pregunta.slug %}">{{ pregunta.titulo }}</a></h2>
                     <div class="postmetadata">
                         <ul>
-                            <li><i class="lead fa fa-user"></i> <a href="#">{{ pregunta.autor.get_full_name }}</a></li>
+                            <li><i class="lead fa fa-user"></i> <a href="{% url 'users:detail' pregunta.autor.username %}">{{ pregunta.autor.get_full_name }}</a></li>
                             <li><i class="fa fa-calendar"></i>{{ pregunta.creado_en }}</li>
                             <li><i class="fa fa-tag"></i>
                                 {% for tag in pregunta.tags.all %}
@@ -32,8 +32,7 @@
                         </ul>
                     </div>
                     <hr>
-                    <p>{{ pregunta.descripcion|truncatechars:100 }}</p>
-                    <a class="btn btn-primary" href="{% url 'detalle_pregunta' pregunta.slug %}">Seguir Leyendo</i></a>
+                    <h4>{{ pregunta.descripcion|truncatechars:100 }}</h4>
                     <hr>
                 {% empty %}
                     <h4 class="no-data">Aun no tenemos nuestra primer pregunta. <a href="{% url 'crear_pregunta' %}">¿Quieres preguntarle algo a la comunidad?</a></h4>
