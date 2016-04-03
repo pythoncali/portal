@@ -34,40 +34,43 @@
                 <hr>
                 <!-- Post Content -->
                 <p>{{ pregunta.descripcion }}</p>
-                <a class="pull-right btn btn-primary" href="{% url 'crear_respuesta' pregunta.id %}">Ofrecer una Respuesta</a>
                 <hr>
+                <div class="well">
+                    <a class="btn btn-primary" href="{% url 'comentar_pregunta' pregunta.id %}">Comentar esta pregunta</a>
+                    <a class="pull-right btn btn-primary" href="{% url 'crear_respuesta' pregunta.id %}">Ofrecer una Respuesta</a>
+                </div>
                 <h4>Respuestas</h4>
                 {% for respuesta in pregunta.respuesta_set.all %}
                     <div class="row">
                         <div class ="col-md-9">
                         <div id="respuesta" class="alert alert-primary" role="alert">{{ respuesta.descripcion }}</div>
-                        <a class="btn btn-primary" href="#" class="pull-right">Comentar Respuesta</a>
+                        <a class="btn btn-primary" href="{% url 'comentar_respuesta' respuesta.id %}" class="pull-right">Comentar Respuesta</a>
                         {% if respuesta.comentariorespuesta_set.all %}
+                            <div class="well">
                             <h4>Comentarios</h4>
                             {% for comentario in respuesta.comentariorespuesta_set.all %}
-                                <p><b>{{ comentario.comentario }}</b><small>, <a href="#">comentador</a> <div class="pull-right">fecha comentario</div></small></p>
+                                <p>{{ comentario.comentario }}</p>
+                                <p><small>, <a href="{% url 'users:detail' comentario.comentador.username %}"><b>{{ comentario.comentador }}</b></a>, {{ comentario.creado_en }}</small></p>
                                 <hr>
                             {% endfor %}
+                            </div>
                         {% endif %}
                         </div>
                         <div class ="col-md-2">
-                            <p class="pull-right">- <b><a href="#">Respondedor</a></b></p>
+                            <p class="pull-right">- <b><a href="{% url 'users:detail' respuesta.autor.username %}">{{ respuesta.autor }}</a></b></p>
                         </div>
                     </div>
                     <hr>
                 {% endfor %}
-
-                <!-- Comments Form
-                <div class="well">
-                    <h4>Deja una respuesta:</h4>
+                <!-- <div class="well">
+                    <a class="btn btn-primary" href="{% url 'comentar_pregunta' pregunta.id %}">Comentar esta pregunta</a>
                     <form role="form">
                         <div class="form-group">
                             <textarea class="form-control" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
-                </div>
-                -->
+                </div> -->
             </div>
         </div>
     </div>

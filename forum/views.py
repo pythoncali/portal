@@ -55,10 +55,11 @@ class ComentarRespuesta(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.comentador = self.request.user
         form.instance.respuesta_id = self.kwargs['respuesta_id']
-        return super(ComentarPregunta, self).form_valid(form)
+        return super(ComentarRespuesta, self).form_valid(form)
 
     def get_success_url(self):
-        slug = Respuesta.objects.get(id=self.kwargs['respuesta_id']).pregunta.slug
+        respuesta = Respuesta.objects.get(id=self.kwargs['respuesta_id'])
+        slug = respuesta.pregunta.slug
         return reverse('detalle_pregunta', kwargs={'slug': slug})
 
 
