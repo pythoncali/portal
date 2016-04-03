@@ -31,21 +31,6 @@ class ForoManager(models.Manager):
         return Pregunta.objects.filter(tiene_respuesta=True)
 
 
-class Comentario(models.Model):
-    '''Modelo para alojar los diferentes comentarios hechos en el foro, los
-    cuales se supone seran para complementar diferentes aspectos de la pregunta
-    o respuesta sobre la cual se hacen.'''
-    creado_en = models.DateTimeField(auto_now_add=True, editable=False)
-    modificado_en = models.DateTimeField(auto_now=True)
-    comentador = models.ForeignKey(settings.AUTH_USER_MODEL)
-    comentario = models.TextField(max_length=3000, blank=True)
-
-    class Meta:
-        verbose_name = 'Comentario'
-        verbose_name_plural = 'Comentarios'
-        ordering = ('-creado_en',)
-
-
 class Votos(models.Model):
     '''Modelo para llevar el registro de votos aplicados a los registros de los
     otros dos modelos. La idea principal es llevar un registro de
@@ -77,8 +62,6 @@ class Pregunta(models.Model):
     tiene_respuesta = models.BooleanField(default=False)
     votos = models.ManyToManyField(Votos, blank=True,
                                    limit_choices_to={'pk': 0})
-    comentarios = models.ManyToManyField(Comentario, blank=True,
-                                         limit_choices_to={'pk': 0})
     vistas = models.IntegerField(default=0)
     tags = TaggableManager(blank=True)
     objects = ForoManager()
@@ -137,8 +120,6 @@ class Respuesta(models.Model):
     aceptada = models.BooleanField(default=False)
     votos = models.ManyToManyField(Votos, blank=True,
                                    limit_choices_to={'pk': 0})
-    comentarios = models.ManyToManyField(Comentario, blank=True,
-                                         limit_choices_to={'pk': 0})
     tags = TaggableManager(blank=True)
     objects = ForoManager()
 
@@ -175,3 +156,35 @@ class Respuesta(models.Model):
 
     def __str__(self):
         return self.descripcion
+
+
+class ComentarioPregunta(models.Model):
+    '''Modelo para alojar los diferentes comentarios hechos en el foro, los
+    cuales se supone seran para complementar diferentes aspectos de la pregunta
+    sobre la cual se hacen.'''
+    creado_en = models.DateTimeField(auto_now_add=True, editable=False)
+    modificado_en = models.DateTimeField(auto_now=True)
+    comentador = models.ForeignKey(settings.AUTH_USER_MODEL)
+    pregunta = models.ForeignKey(Pregunta)
+    comentario = models.TextField(max_length=3000, blank=True)
+
+    class Meta:
+        verbose_name = 'Comentario'
+        verbose_name_plural = 'Comentarios'
+        ordering = ('-creado_en',)
+
+
+class ComentarioRespuesta(models.Model):
+    '''Modelo para alojar los diferentes comentarios hechos en el foro, los
+    cuales se supone seran para complementar diferentes aspectos de la
+    respuesta sobre la cual se hacen.'''
+    creado_en = models.DateTimeField(auto_now_add=True, editable=False)
+    modificado_en = models.DateTimeField(auto_now=True)
+    comentador = models.ForeignKey(settings.AUTH_USER_MODEL)
+    respuesta = models.ForeignKey(Respuesta)
+    comentario = models.TextField(max_length=3000, blank=True)
+
+    class Meta:
+        verbose_name = 'Comentario'
+        verbose_name_plural = 'Comentarios'
+        ordering = ('-creado_en',)

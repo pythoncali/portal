@@ -32,7 +32,7 @@
                         </ul>
                     </div>
                     <hr>
-                    <p>{{ pregunta.descripcion|truncatechars:300 }}</p>
+                    <p>{{ pregunta.descripcion|truncatechars:100 }}</p>
                     <a class="btn btn-primary" href="{% url 'detalle_pregunta' pregunta.slug %}">Seguir Leyendo</i></a>
                     <hr>
                 {% empty %}
@@ -72,14 +72,14 @@
                         </span>
                     </div>
                     <!-- /.input-group -->
-                </div>                
+                </div>
                 <!-- Side Widget Well -->
                 <div class="well">
                     <h4>CloudTag</h4>
-                    {% for tag in tags %}
-                        <p>
-                            {{tag}}
-                        </p>
+                    {% for pregunta in lista_preguntas %}
+                        {% for tag in pregunta.tags.all %}
+                            <a href="#">{{ tag }}</a>
+                        {% endfor %}
                     {% endfor %}
                 </div>
             </div>
