@@ -1,8 +1,9 @@
 from django.conf.urls import url
-from .views import ListaPreguntas, DetallePregunta, CrearPregunta, CrearRespuesta, ComentarPregunta, ComentarRespuesta
+from .views import ListaPreguntas, DetallePregunta, CrearPregunta, CrearRespuesta, ComentarPregunta, ComentarRespuesta, PreguntasEtiquetadas
 
 urlpatterns = [
     url(r'^$', ListaPreguntas.as_view(), name="lista_preguntas"),
+    url(r'^tags/(?P<tag_id>\d+)/$', PreguntasEtiquetadas.as_view(), name='preguntas_etiquetadas'),
     url(r'^crear-pregunta/$', CrearPregunta.as_view(), name='crear_pregunta'),
     url(r'^responder/(?P<pregunta_id>\d+)/$',
         CrearRespuesta.as_view(), name='crear_respuesta'),

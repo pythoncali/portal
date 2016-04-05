@@ -4,6 +4,19 @@ from braces.views import LoginRequiredMixin
 from .models import Pregunta, Respuesta, ComentarioPregunta, ComentarioRespuesta
 
 
+class PreguntasEtiquetadas(ListView):
+    '''Vista para invocar el listado de preguntas relacionadas mediante una
+    etiqueta dada
+    '''
+    model = Pregunta
+    paginate_by = 10
+    context_object_name = 'lista_preguntas'
+    template_name = 'forum/pregunta_list.html'
+
+    def get_queryset(self, **kwargs):
+        return Pregunta.objects.filter(tags__id=self.kwargs['tag_id'])
+
+
 class CrearPregunta(LoginRequiredMixin, CreateView):
     '''Vista usando concepto de 'Class Based Views' para registrar y publicar,
     una pregunta de forma abierta en el foro, habilitando creacion de preguntas
