@@ -67,12 +67,10 @@
                 {% endif %}
                 <div class="well">
                     <h4>Buscar en el Foro</h4>
-                    <div class="input-group">
-                        <input type="text" class="form-control">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Buscar</button>
-                        </span>
-                    </div>
+                    <form id="searchform" action="{% url 'buscar_preguntas' %}" method="get" accept-charset="utf-8">
+                        <button class="searchbutton" type="submit"><i class="fa fa-search"></i></button>
+                        <span><input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search"></span>
+                    </form>
                     <!-- /.input-group -->
                 </div>
                 <!-- Side Widget Well -->

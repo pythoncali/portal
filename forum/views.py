@@ -1,4 +1,7 @@
+import operator
+from functools import reduce
 from django.views.generic import ListView, DetailView, CreateView
+from django.db.models import Q
 from django.core.urlresolvers import reverse_lazy, reverse
 from braces.views import LoginRequiredMixin
 from .models import Pregunta, Respuesta, ComentarioPregunta, ComentarioRespuesta
@@ -82,8 +85,26 @@ class ListaPreguntas(ListView):
     context_object_name = 'lista_preguntas'
 
 
-class ListaRespuestas(ListView):
-    model = Respuesta
+class BuscarPreguntas(ListaPreguntas):
+    """
+    Display a ListView page inherithed from the ListaPreguntas filtered by
+    the search query and sorted by the different elements aggregated.
+    """
+    paginate_by = 10
+
+    def get_queryset(self):
+        result = super(BuscarPreguntas, self).get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_,
+                       (Q(titulo__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (Q(descripcion__icontains=q) for q in query_list))
+            )
+
+        return result
 
 
 class DetallePregunta(DetailView):
@@ -98,4 +119,8 @@ class DetallePregunta(DetailView):
 
 
 class DetalleRespuesta(DetailView):
+    model = Respuesta
+
+
+class ListaRespuestas(ListView):
     model = Respuesta
