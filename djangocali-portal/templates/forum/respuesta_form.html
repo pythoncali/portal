@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}Registrar Respuesta{% endblock %}
+
+{% block content %}
+
+    <div class="container" style="padding-top:30px; padding-bottom: 30px;">
+        <div class="8u skel-cell-important">
+            La pregunta: {{ form.id }}
+            <section>
+                <form enctype="multipart/form-data" action="{% url 'crear_respuesta' view.kwargs.pregunta_id %}" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" name="registrar_respuesta" value="Publicar">
+                </form>
+            </section>
+        </div>
+    </div>
+
+{% endblock content %}

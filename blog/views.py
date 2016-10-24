@@ -66,7 +66,6 @@ class DetalleArticulo(DetailView):
     portal, sin necesidad de dar acceso al lado administrativo del mismo.
     """
     model = Articulo
-    context_obj_name = 'articulo'
 
 
 class CrearArticulo(LoginRequiredMixin, CreateView):
