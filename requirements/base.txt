@@ -1,41 +1,41 @@
 # Bleeding edge Django
-django==1.8.4
+django
 
 # Configuration
-django-environ==0.3.0
-django-secure==1.0.1
+django-environ
+django-secure
 
 # Forms
-django-braces==1.8.1
-django-crispy-forms==1.5.0
-django-floppyforms==1.5.2
+django-braces
+django-crispy-forms
+django-floppyforms
 
 # Models
-django-model-utils==2.3.1
+django-model-utils
 
 # Images
-Pillow==2.9.0
+Pillow
 
 # For user registration, either via email or social
 # Well-built with regular release cycles!
-django-allauth==0.23.0
+django-allauth
 
 # For the persistence stores
-psycopg2==2.6.1
+psycopg2
 
 # Unicode slugification
-unicode-slugify==0.1.3
-django-autoslug==1.8.0
+unicode-slugify
+django-autoslug
 
 # Time zones support
-pytz==2015.4
+pytz
 
 # Redis support
-django-redis==4.2.0
+django-redis
 redis>=2.10.0
 
 # Celery support
-celery==3.1.18
+celery
 
 # Your custom requirements go here
-django-taggit==0.17.0
+django-taggit
